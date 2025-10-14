@@ -11,11 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groupes', function (Blueprint $table) {
+        Schema::create('type_alertes', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
             $table->text('description')->nullable();
+            
+            // Champs de traçabilité
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
+
             $table->timestamps();
+            $table->softDeletes(); // pour deleted_at
         });
     }
 
@@ -24,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groupes');
+        Schema::dropIfExists('type_alertes');
     }
 };

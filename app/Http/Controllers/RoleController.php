@@ -12,7 +12,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -20,7 +21,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('roles.create');
     }
 
     /**
@@ -28,7 +29,15 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validated = $request->validate([
+            'libelle' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        Role::create($validated);
+
+        return redirect()->route('roles.index')
+                         ->with('success', 'Rôle créé avec succès.');
     }
 
     /**
@@ -36,7 +45,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        return view('roles.show', compact('role'));
     }
 
     /**
@@ -44,7 +53,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('roles.edit', compact('role'));
     }
 
     /**
@@ -52,7 +61,15 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $validated = $request->validate([
+            'libelle' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $role->update($validated);
+
+        return redirect()->route('roles.index')
+                         ->with('success', 'Rôle mis à jour avec succès.');
     }
 
     /**
@@ -60,6 +77,9 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        return redirect()->route('roles.index')
+                         ->with('success', 'Rôle supprimé avec succès.');
     }
 }
