@@ -53,6 +53,7 @@ class Incident extends Model
         'prestataire_externe_incident',
         'denomination_sociale_prestataire',
         'telephone_prestataire',
+        'localisation_physique',
         'created_by',
         'updated_by',
     ];
@@ -61,4 +62,17 @@ class Incident extends Model
         'impact_averer' => 'array', 
         'action_cond_entre' => 'array',
     ];
+
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($incident) {
+        
+        $last = self::orderBy('id', 'desc')->first();
+        $nextId = $last ? $last->id + 1 : 1;
+        $incident->numero_suivie = 'INC-' . date('Y') . '-' . str_pad($nextId, 6, '0', STR_PAD_LEFT);
+    });
+}
+
 }

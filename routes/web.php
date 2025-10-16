@@ -18,6 +18,7 @@ Route::get('/cert/{id}', [AlerteController::class, 'certShow'])->name('cert.show
 
     //route formulaire incident 
 Route::get('/incidents/create', [IncidentController::class, 'create'])->name('incidents.create');
+Route::post('/incidents', [IncidentController::class, 'store'])->name('incidents.store');
 
 
 
@@ -78,7 +79,6 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
 
         /**incident */
         Route::get('/incidents', [IncidentController::class, 'index'])->name('incidents.index');
-        Route::post('/incidents', [IncidentController::class, 'store'])->name('incidents.store');
         Route::get('/incidents/{incident}', [IncidentController::class, 'show'])->name('incidents.show');
 
         Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout');

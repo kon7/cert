@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
+            $table->string('numero_suivie')->unique();
 
             // Informations de base
             $table->string('declaration'); // initiale, intermediaire, post-mortem
@@ -58,6 +59,7 @@ return new class extends Migration
 
             $table->string('poucentage_utili')->nullable();
             $table->string('services_essentiels')->nullable();
+            $table->string('localisation_physique')->nullable();
 
             $table->string('tiers_systeme')->nullable();
 

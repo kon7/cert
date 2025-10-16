@@ -86,10 +86,12 @@ class IncidentController extends Controller
 
        // $validated['created_by'] = Auth::id();
 
-        Incident::create($validated);
+      $incident = Incident::create($validated);
 
-        return redirect()->route('incidents.index')
-                         ->with('success', 'Incident déclaré avec succès.');
+         return redirect()->back()->with([
+        'success' => 'Incident enregistré avec succès !',
+        'numero_suivie' => $incident->numero_suivie
+    ]);
     }
 
     /**
