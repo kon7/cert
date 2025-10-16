@@ -14,15 +14,15 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <!-- Inclusion du tableau -->
+   
     @include('groupes.table')
 
 </div>
 
-<!-- Modale de création -->
-@include('groupes.create')
 
-<!-- Modales d’édition et de consultation -->
+@include('groupes.create', ['roles' => $roles])
+
+
 @foreach($groupes as $groupe)
     @include('groupes.edit', ['groupe' => $groupe])
     @include('groupes.show', ['groupe' => $groupe])
@@ -30,21 +30,5 @@
 
 @endsection
 
-@section('scripts')
-<!-- Bootstrap Dual Listbox -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap4-duallistbox@4.0.2/dist/bootstrap-duallistbox.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap4-duallistbox@4.0.2/dist/jquery.bootstrap-duallistbox.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('.duallistbox').bootstrapDualListbox({
-            nonSelectedListLabel: 'Rôles disponibles',
-            selectedListLabel: 'Rôles assignés',
-            filterPlaceHolder: 'Filtrer',
-            moveSelectedLabel: 'Ajouter',
-            removeSelectedLabel: 'Retirer',
-            infoText: 'Total {0} rôles'
-        });
-    });
-</script>
-@endsection
+

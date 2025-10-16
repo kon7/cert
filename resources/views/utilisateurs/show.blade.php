@@ -10,7 +10,13 @@
             <p><strong>Nom:</strong> {{ $utilisateur->nom }}</p>
             <p><strong>Prénom:</strong> {{ $utilisateur->prenom }}</p>
             <p><strong>Email:</strong> {{ $utilisateur->email }}</p>
-            <p><strong>Groupe:</strong> {{ $utilisateur->groupe->nom ?? 'N/A' }}</p>
+             <p><strong>Groupes associés :</strong></p>
+                @forelse($utilisateur->groupes as $groupe)
+                    <span class="badge bg-secondary">{{ $groupe->libelle }}</span>
+                @empty
+                    <em>Aucun groupe assigné</em>
+                @endforelse
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>

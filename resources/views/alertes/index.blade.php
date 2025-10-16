@@ -9,10 +9,10 @@
     @include('alertes.table', ['alertes' => $alertes])
 
     @foreach($alertes as $alerte)
-        @include('alertes.modals.show', ['alerte' => $alerte])
-        @include('alertes.modals.edit', ['alerte' => $alerte, 'types' => $types])
+        @include('alertes.show', ['alerte' => $alerte])
+        @include('alertes.edit', ['alerte' => $alerte, 'types' => $types])
     @endforeach
 
-    @include('alertes.modals.create', ['types' => $types])
+    @include('alertes.create', ['types' => $types])
 </div>
 @endsection

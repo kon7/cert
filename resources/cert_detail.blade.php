@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
 <div class="container mt-4">
     <h1>Détails de l'alerte : {{ $alerte->reference }}</h1>
 
@@ -18,4 +16,4 @@
 
     <a href="{{ route('cert.index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
 </div>
-@endsection
+

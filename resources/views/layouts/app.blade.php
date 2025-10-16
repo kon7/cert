@@ -3,40 +3,75 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- core:css -->
-	<link rel="stylesheet" href="{{asset('assets/vendors/core/core.css')}}">
-	<!-- endinject -->
-  <!-- plugin css for this page -->
-	<link rel="stylesheet" href="{{asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
-	<!-- end plugin css for this page -->
-	<!-- inject:css -->
-	<link rel="stylesheet" href="{{asset('assets/fonts/feather-font/css/iconfont.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
-	<!-- endinject -->
-  <!-- Layout styles -->
-	<link rel="stylesheet" href="{{asset ('assets/css/demo_2/style.css')}}">
-  <!-- End layout styles -->
-  <link rel="shortcut icon" type="text/css" href="{{asset('assets/images/favicon.png')}}" />
-  {{-- <link rel="stylesheet" href="https:://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"> --}}
 
-  <!-- Plugin css for this page -->
-  {{-- <link rel="stylesheet" href="{{asset('assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css')}}"> --}}
-  <link rel="stylesheet" href="{{asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
+    {{-- =========================
+         🌐 META & TITLE
+    ========================== --}}
+    <title>@yield('title', 'Tableau de bord')</title>
 
+    {{-- =========================
+         🎨 CSS PRINCIPAL
+    ========================== --}}
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/core/core.css') }}">
 
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+
+    <!-- Icons & Fonts -->
+    <link rel="stylesheet" href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+
+    <!-- Layout Styles -->
+    <link rel="stylesheet" href="{{ asset('assets/css/demo_2/style.css') }}">
+
+    <!-- Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- DataTables (Bootstrap 5 Theme) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+    <!-- Icons Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
+    
+
+    {{-- Styles additionnels spécifiques à une page --}}
+    @stack('styles')
 </head>
+
 <body>
     <div class="main-wrapper">
+        
         @include('cert.body.sidebar')
+
         <div class="page-wrapper">
-        @include('cert.body.navbar')
-        <div class="page-content">
-        @yield('content')
-        @include('cert.body.footer')
-        </div>
+           
+            @include('cert.body.navbar')
+
+            
+            <div class="page-content">
+                @yield('content')
+            </div>
+
+            
+            @include('cert.body.footer')
         </div>
     </div>
-     <script src="{{ asset('assets/vendors/core/core.js') }}"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core JS -->
+    <script src="{{ asset('assets/vendors/core/core.js') }}"></script>
+    <!-- CKEditor CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+
+    <!-- Charts & Plugins -->
     <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery.flot/jquery.flot.resize.js') }}"></script>
@@ -44,8 +79,17 @@
     <script src="{{ asset('assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/progressbar.js/progressbar.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/feather-icons/feather.min.js') }}"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Template Core JS -->
     <script src="{{ asset('assets/js/template.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+
+    {{-- Scripts additionnels spécifiques à une page --}}
+    @stack('scripts')
 </body>
 </html>

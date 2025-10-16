@@ -15,7 +15,7 @@ class UtilisateurController extends Controller
      */
     public function index()
     {
-        $utilisateurs = Utilisateur::with('groupe')->get();
+        $utilisateurs = Utilisateur::with('groupes')->get();
         $groupes = Groupe::all();
 
         return view('utilisateurs.index', compact('utilisateurs', 'groupes'));
@@ -41,12 +41,15 @@ class UtilisateurController extends Controller
             'prenom' => 'required|string|max:100',
             'email' => 'required|email|unique:utilisateurs',
             'password' => 'required|string|min:6|confirmed',
-            'groupe_id' => 'required|exists:groupes,id',
+            'groupe_id.*' => 'exists:groupes,id',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
-        Utilisateur::create($validated);
+       $utilisateur = Utilisateur::create($validated);
+        if (!empty($validated['groupe_id'])) {
+            $utilisateur->groupes()->attach($validated['groupe_id']);
+        }
 
         return redirect()->route('utilisateurs.index')
                          ->with('success', 'Utilisateur créé avec succès.');
@@ -80,7 +83,7 @@ class UtilisateurController extends Controller
             'prenom' => 'required|string|max:100',
             'email' => 'required|email|unique:utilisateurs,email,' . $utilisateur->id,
             'password' => 'nullable|string|min:6|confirmed',
-            'groupe_id' => 'required|exists:groupes,id',
+            'groupe_id.*' => 'exists:groupes,id',
         ]);
 
         if (!empty($validated['password'])) {
@@ -90,6 +93,8 @@ class UtilisateurController extends Controller
         }
 
         $utilisateur->update($validated);
+        $utilisateur->groupes()->sync($validated['groupe_id'] ?? []);
+
 
         return redirect()->route('utilisateurs.index')
                          ->with('success', 'Utilisateur mis à jour avec succès.');
@@ -105,29 +110,54 @@ class UtilisateurController extends Controller
         return redirect()->route('utilisateurs.index')
                          ->with('success', 'Utilisateur supprimé avec succès.');
     }
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
 
-        $utilisateur = Utilisateur::where('email', $credentials['email'])->first();
+    public function login(Request $request){
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ]);
 
-        if ($utilisateur && Hash::check($credentials['password'], $utilisateur->password)) {
-            // Connexion réussie
-            Auth::login($utilisateur);
-            return redirect()->route('dashboard')->with('success', 'Connexion réussie !');
-        }
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('/dashbord');
+            }
 
-        return back()->withErrors([
-            'email' => 'Identifiants invalides.',
-        ])->onlyInput('email');
+            return back()->withErrors([
+                'email' => 'Les identifiants fournis sont incorrects.',
+            ])->onlyInput('email');
     }
+    
+
+        // public function login(Request $request)
+        // {
+           
+        //     $credentials = $request->validate([
+        //         'email' => 'required|email',
+        //         'password' => 'required|string',
+        //         'remember' => 'nullable|boolean', 
+        //     ]);
+
+        //     $utilisateur = Utilisateur::where('email', $credentials['email'])->first();
+
+        //     if ($utilisateur && Hash::check($credentials['password'], $utilisateur->password)) {
+                
+        //         $remember = $request->has('remember') && $request->remember;
+
+               
+        //         Auth::login($utilisateur, $remember);
+
+        //         return redirect()->route('dashboard')->with('success', 'Connexion réussie !');
+        //     }
+
+        //     return back()->withErrors([
+        //         'email' => 'Identifiants invalides.',
+        //     ])->onlyInput('email');
+        // }
+
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Déconnexion réussie.');
+        return redirect()->route('pagelogin')->with('success', 'Déconnexion réussie.');
     }
 
     public function profile()

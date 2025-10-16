@@ -1,17 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4">
-    <h1>Liste des utilisateurs</h1>
+<div class="container py-4">
+ 
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="bi bi-people-fill me-2"></i> Gestion des utilisateurs
+        </h2>
 
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">Créer un utilisateur</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+            <i class="bi bi-plus-circle me-1"></i> Nouveau utilisateur
+        </button>
+    </div>
 
-    @include('utilisateurs.table', ['utilisateurs' => $utilisateurs])
+        <div class="card-body">
+            <div class="table-responsive">
+                @include('utilisateurs.table', ['utilisateurs' => $utilisateurs])
+            </div>
+        </div>
+ 
 
+    
+    @foreach($utilisateurs as $utilisateur)
+       
+        @include('utilisateurs.show', ['utilisateur' => $utilisateur])
+        @include('utilisateurs.edit', ['utilisateur' => $utilisateur, 'groupes' => $groupes])
+    @endforeach
+
+    @include('utilisateurs.create', ['groupes' => $groupes])
+    
 </div>
-
-@include('utilisateurs.modals.create', ['groupes' => $groupes])
-@include('utilisateurs.modals.edit', ['groupes' => $groupes])
-@include('utilisateurs.modals.show')
-
 @endsection
+

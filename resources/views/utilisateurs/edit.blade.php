@@ -17,13 +17,15 @@
             <input type="password" name="password_confirmation" class="form-control mb-2" placeholder="Confirmer le mot de passe">
             
             <label>Groupe</label>
-            <select multiple name="groupe_id[]" class="form-control dual-listbox">
-                @foreach($groupes as $groupe)
-                    <option value="{{ $groupe->id }}" {{ $utilisateur->groupe_id == $groupe->id ? 'selected' : '' }}>
-                        {{ $groupe->nom }}
-                    </option>
-                @endforeach
-            </select>
+           
+          <select name="groupe_id[]" class="duallistbox" multiple>
+                        @foreach($groupes as $groupe)
+                            <option value="{{ $groupe->id }}" 
+                                {{ $utilisateur->groupes->contains($groupe->id) ? 'selected' : '' }}>
+                                {{ $groupe->libelle }}
+                            </option>
+                        @endforeach
+                    </select>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>

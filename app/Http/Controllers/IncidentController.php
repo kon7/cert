@@ -18,7 +18,9 @@ class IncidentController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * 
      */
+    // ici mettre la vue du formulaire de declaration inccidents
     public function create()
     {
         return view('incidents.create');

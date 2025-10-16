@@ -19,7 +19,7 @@ class Type_alerte extends Model
         'deleted_by',
     ];
 
-    // Champs qui seront traités comme dates
+    
     protected $dates = [
         'created_at',
         'updated_at',

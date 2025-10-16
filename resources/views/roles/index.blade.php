@@ -14,15 +14,14 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <!-- Inclusion du tableau -->
+   
     @include('roles.table')
 
 </div>
 
-<!-- Modale création -->
+
 @include('roles.create')
 
-<!-- Modales édition + affichage -->
 @foreach($roles as $role)
     @include('roles.edit', ['role' => $role])
     @include('roles.show', ['role' => $role])

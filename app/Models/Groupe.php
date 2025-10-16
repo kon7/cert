@@ -11,13 +11,14 @@ class Groupe extends Model
 
     protected $fillable = ['libelle', 'description'];
 
-    public function utilisateurs()
-    {
-        return $this->hasMany(Utilisateur::class);
-    }
+    
 
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'groupe_roles');
+    }
+    public function utilisateurs()
+    {
+        return $this->belongsToMany(Utilisateur::class, 'utilisateur_groupes');
     }
 }

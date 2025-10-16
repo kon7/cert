@@ -63,19 +63,20 @@ class TypeAlerteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Type_alerte $type_alerte)
+    public function update(Request $request, $id)
     {
-         $validated = $request->validate([
-            'libelle' => 'required|string|max:255',
-            'description' => 'nullable|string',
-        ]);
+        $validated = $request->validate([
+        'libelle' => 'required|string|max:255',
+        'description' => 'nullable|string',
+    ]);
 
-        $validated['updated_by'] = Auth::id();
+    $typeAlerte = Type_alerte::findOrFail($id);
+    $validated['updated_by'] = Auth::id();
 
-        $type_alerte->update($validated);
+    $typeAlerte->update($validated);
 
-        return redirect()->route('type_alertes.index')
-                         ->with('success', 'Type d\'alerte mis à jour avec succès.');
+    return redirect()->route('type_alertes.index')
+                     ->with('success', 'Type d\'alerte mis à jour avec succès.');
     }
 
     /**

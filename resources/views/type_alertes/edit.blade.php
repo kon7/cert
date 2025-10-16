@@ -1,7 +1,7 @@
-<div class="modal fade" id="editModal{{ $typeAlerte->id }}" tabindex="-1">
+<div class="modal fade" id="editModal{{ $typeAlerte->id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ route('type_alertes.update', $typeAlerte) }}" method="POST">
+      <form action="{{ route('type_alertes.update', $typeAlerte->id ) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="modal-header">
@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <input type="text" name="libelle" class="form-control mb-2" value="{{ $typeAlerte->libelle }}" required>
-            <textarea name="description" class="form-control mb-2">{{ $typeAlerte->description }}</textarea>
+            <input type="text" name="description" class="form-control mb-2" value="{{ $typeAlerte->description }}" required>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>

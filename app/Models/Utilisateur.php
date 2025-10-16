@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Utilisateur extends Model
+class Utilisateur extends Authenticatable
 {
     use HasFactory;
 
@@ -15,11 +16,26 @@ class Utilisateur extends Model
         'prenom',
         'email',
         'password',
-        'groupe_id',
+       
+    ];
+    protected $hidden = [
+       
+        'remember_token',
     ];
 
-    public function groupe()
+    public function groupes()
     {
-        return $this->belongsTo(Groupe::class);
+        return $this->belongsToMany(Groupe::class, 'utilisateur_groupes');
+    }
+
+    //fonction pour les roles
+    public function hasRole(string $roleLibelle): bool
+    {
+        foreach ($this->groupes as $groupe) {
+            if ($groupe->roles->contains('libelle', $roleLibelle)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

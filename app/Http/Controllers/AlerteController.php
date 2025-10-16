@@ -120,6 +120,8 @@ class AlerteController extends Controller
                          ->with('success', 'Alerte supprimée avec succès.');
     
     }
+
+    //fonction pour retoune les alerte sur le site vitrine cert
     public function certIndex()
         {
             $alertes = Alerte::with('typeAlerte')
@@ -128,6 +130,7 @@ class AlerteController extends Controller
 
             return view('cert', compact('alertes'));
         }
+    
 
     public function certShow($id)
         {

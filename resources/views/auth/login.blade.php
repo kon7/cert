@@ -1,13 +1,11 @@
-@extends('layouts.app')
 
-@section('content')
 <div class="container py-5" style="max-width: 500px;">
     <div class="card shadow">
         <div class="card-header bg-primary text-white text-center">
             <h4>Connexion</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('login.post') }}" method="POST">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Adresse e-mail</label>
@@ -26,4 +24,4 @@
         </div>
     </div>
 </div>
-@endsection
+

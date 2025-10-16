@@ -1,4 +1,4 @@
-<nav class="sidebar">
+{{-- <nav class="sidebar">
       <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
           CERT<span>BF</span>
@@ -30,12 +30,6 @@
                 <li class="nav-item">
                   <a href="pages/email/inbox.html" class="nav-link">Publier alertes</a>
                 </li>
-                {{-- <li class="nav-item">
-                  <a href="pages/email/read.html" class="nav-link">Read</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/email/compose.html" class="nav-link">Compose</a>
-                </li> --}}
               </ul>
             </div>
           </li>
@@ -74,4 +68,72 @@
         </ul>
       </div>
     </nav>
-   
+    --}}
+
+    <nav class="sidebar">
+    <div class="sidebar-header">
+        <a href="{{ route('dashboard') }}" class="sidebar-brand">
+            CERT<span>BF</span>
+        </a>
+        <div class="sidebar-toggler not-active">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <ul class="nav">
+
+            {{-- Dashboard --}}
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link">
+                    <i class="link-icon" data-feather="home"></i>
+                    <span class="link-title">Dashboard</span>
+                </a>
+            </li>
+
+            {{-- Admin --}}
+            {{-- @can('role', 'admin') Affiché seulement si l'utilisateur est admin --}}
+            <li class="nav-item nav-category">Administrateur</li>
+
+            <li class="nav-item">
+                <a href="{{ route('utilisateurs.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Utilisateurs</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('roles.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="key"></i>
+                    <span class="link-title">Rôles</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('groupes.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="layers"></i>
+                    <span class="link-title">Groupes</span>
+                </a>
+            </li>
+            {{-- @endcan --}}
+
+            {{-- Paramétrage --}}
+            <li class="nav-item nav-category">Paramétrage</li>
+            <li class="nav-item">
+                <a href="{{ route('type_alertes.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="slack"></i>
+                    <span class="link-title">Type Alerte</span>
+                </a>
+            </li>
+
+            {{-- Alertes --}}
+            <li class="nav-item nav-category">Alertes</li>
+            <li class="nav-item">
+                <a href="{{ route('alertes.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="alert-circle"></i>
+                    <span class="link-title">Alertes</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

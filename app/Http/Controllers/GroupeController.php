@@ -14,7 +14,8 @@ class GroupeController extends Controller
     public function index()
     {
         $groupes = Groupe::with('roles')->get();
-        return view('groupes.index', compact('groupes'));
+        $roles = Role::all();
+        return view('groupes.index', compact('groupes', 'roles'));
     }
 
     /**

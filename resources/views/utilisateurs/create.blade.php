@@ -1,4 +1,4 @@
-<div class="modal fade" id="createModal" tabindex="-1">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="{{ route('utilisateurs.store') }}" method="POST">
@@ -18,7 +18,7 @@
             <label>Groupe</label>
             <select multiple name="groupe_id[]" class="form-control dual-listbox">
                 @foreach($groupes as $groupe)
-                    <option value="{{ $groupe->id }}">{{ $groupe->nom }}</option>
+                    <option value="{{ $groupe->id }}">{{ $groupe->libelle }}</option>
                 @endforeach
             </select>
         </div>
