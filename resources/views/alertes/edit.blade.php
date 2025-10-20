@@ -1,12 +1,14 @@
-<div class="modal fade" id="editModal{{ $alerte->id }}" tabindex="-1">
-  <div class="modal-dialog modal-xl">
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="editModal{{ $alerte->id }}">
+  <div class="modal-dialog modal-xl" role="dialog">
     <div class="modal-content">
       <form action="{{ route('alertes.update', $alerte) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="modal-header">
-          <h5 class="modal-title">Modifier l'alerte</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+       <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier une alerte</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
             <!-- Ligne 1 : Référence et Intitulé -->
@@ -41,18 +43,20 @@
                 <div class="col-md-6 mb-2">
                     <input type="text" name="severite" class="form-control" placeholder="Sévérité" value="{{ $alerte->severite }}">
                 </div>
-                <div class="col-md-6 mb-2">
-                    @php $etat = json_decode($alerte->etat ?? '[]'); @endphp
-                    <label>État :</label><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="etat[]" value="initial" {{ in_array('initial', $etat) ? 'checked' : '' }}>
-                        <label class="form-check-label">Initial</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="etat[]" value="traite" {{ in_array('traite', $etat) ? 'checked' : '' }}>
-                        <label class="form-check-label">Traité</label>
-                    </div>
+                        <div class="col-md-6 mb-2">
+                <label>État :</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="etat" id="etat-initial"
+                        value="initial" {{ (isset($alerte->etat) && $alerte->etat == 'initial') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="etat-initial">Initial</label>
                 </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="etat" id="etat-traite"
+                        value="traite" {{ (isset($alerte->etat) && $alerte->etat == 'traite') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="etat-traite">Traité</label>
+                </div>
+            </div>
+
             </div>
 
             <!-- Ligne 4 : Date initiale et Date traité -->
@@ -97,7 +101,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             <button type="submit" class="btn btn-warning">Modifier</button>
         </div>
       </form>

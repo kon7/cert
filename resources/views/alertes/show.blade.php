@@ -1,9 +1,11 @@
-<div class="modal fade" id="showModal{{ $alerte->id }}" tabindex="-1">
+<div class="modal fade bd-example-modal-xl" id="showModal{{ $alerte->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Détails de l'alerte</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <h5 class="modal-title" id="exampleModalLabel">Détails de l'alerte</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
             <!-- Section Informations générales -->
@@ -31,10 +33,9 @@
                 </div>
                 <div class="col-md-4">
                     <p><strong>État :</strong> 
-                        @php 
-                            $etat = json_decode($alerte->etat ?? '[]');
-                            echo !empty($etat) ? implode(', ', array_map('ucfirst', $etat)) : 'N/A';
-                        @endphp
+                      
+                           {{$alerte->etat}}
+                            
                     </p>
                 </div>
             </div>
@@ -101,7 +102,7 @@
             </div> --}}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
         </div>
     </div>
   </div>

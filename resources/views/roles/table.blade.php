@@ -1,7 +1,7 @@
-<table class="table table-striped align-middle text-center">
-    <thead class="table-dark">
+<table class="table table-hover table-bordered table-striped table-responsive-sm" id="role-table">
+    <thead >
         <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Libellé</th>
             <th>Description</th>
             <th>Groupes associés</th>
@@ -11,7 +11,7 @@
     <tbody>
         @forelse($roles as $role)
             <tr>
-                <td>{{ $role->id }}</td>
+                <td></td>
                 <td>{{ $role->libelle }}</td>
                 <td>{{ $role->description }}</td>
                 <td>
@@ -22,10 +22,10 @@
                     @endforelse
                 </td>
                 <td>
-                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#showModal{{ $role->id }}">
+                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#showModal{{ $role->id }}">
                         Voir
                     </button>
-                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $role->id }}">
+                    <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $role->id }}">
                         Modifier
                     </button>
                     <form action="{{ route('roles.destroy', $role) }}" method="POST" style="display:inline-block;">
@@ -43,3 +43,41 @@
         @endforelse
     </tbody>
 </table>
+<script>
+
+        $(function () {
+            // Datatable parameters
+            var t = $('#role-table').DataTable({
+                "oLanguage": {
+                    "sUrl": "{{ url('datatables_french.json') }}"
+                },
+                'destroy': true,
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'pageLength': 10,
+                'order': [
+                    [1, "asc"]
+                ],
+                'columnDefs': [{
+                    'targets': [0, 4],
+                    'searchable': false,
+                    'orderable': false
+                }]
+            });
+
+            t.on('order.dt search.dt', function () {
+                t.column(0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+        });
+
+ </script>

@@ -40,7 +40,7 @@ class AlerteController extends Controller
             'type_alerte_id' => 'required|exists:type_alertes,id',
             'date' => 'nullable|date',
             'severite' => 'nullable|string|max:100',
-            'etat' => 'nullable|array',
+            'etat' => 'nullable',
             'date_initial' => 'nullable|date',
             'date_traite' => 'nullable|date',
             'concerne' => 'nullable|string|max:255',
@@ -50,7 +50,7 @@ class AlerteController extends Controller
             'solution' => 'nullable|string',
         ]);
 
-        $validated['etat'] = json_encode($validated['etat'] ?? []);
+        // $validated['etat'] = json_encode($validated['etat'] ?? []);
         $validated['created_by'] = Auth::id();
 
         Alerte::create($validated);
@@ -88,7 +88,7 @@ class AlerteController extends Controller
             'type_alerte_id' => 'required|exists:type_alertes,id',
             'date' => 'nullable|date',
             'severite' => 'nullable|string|max:100',
-            'etat' => 'nullable|array',
+            'etat' => 'nullable',
             'date_initial' => 'nullable|date',
             'date_traite' => 'nullable|date',
             'concerne' => 'nullable|string|max:255',
@@ -98,7 +98,7 @@ class AlerteController extends Controller
             'solution' => 'nullable|string',
         ]);
 
-        $validated['etat'] = json_encode($validated['etat'] ?? []);
+        // $validated['etat'] = json_encode($validated['etat'] ?? []);
         $validated['updated_by'] = Auth::id();
 
         $alerte->update($validated);

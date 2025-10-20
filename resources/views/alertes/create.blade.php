@@ -1,12 +1,17 @@
-<div class="modal fade" id="createModal" tabindex="-1">
-  <div class="modal-dialog modal-xl">
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Ajouter une alerte</button>&nbsp;&nbsp;&nbsp;
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="dialog">
     <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter une alerte</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       <form action="{{ route('alertes.store') }}" method="POST">
         @csrf
-        <div class="modal-header">
-          <h5 class="modal-title">Ajouter une alerte</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
+    
         <div class="modal-body">
           
             <div class="row">
@@ -42,14 +47,15 @@
                 <div class="col-md-6 mb-2">
                     <label>État :</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="etat[]" value="initial">
-                        <label class="form-check-label">Initial</label>
+                        <input class="form-check-input" type="radio" name="etat" id="etat-initial" value="initial">
+                        <label class="form-check-label" for="etat-initial">Initial</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="etat[]" value="traite">
-                        <label class="form-check-label">Traité</label>
+                        <input class="form-check-input" type="radio" name="etat" id="etat-traite" value="traite">
+                        <label class="form-check-label" for="etat-traite">Traité</label>
                     </div>
                 </div>
+
             </div>
 
            
@@ -93,7 +99,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
           <button type="submit" class="btn btn-primary">Créer</button>
         </div>
       </form>
@@ -101,61 +107,4 @@
   </div>
 </div>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
-<script>
-    // Attendre que le modal soit complètement affiché
-    document.getElementById('createModal').addEventListener('shown.bs.modal', function () {
-        const editorConfig = {
-            language: 'fr',
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'undo', 'redo']
-        };
 
-        // Initialiser CKEditor pour Risque
-        if (!document.querySelector('#risque').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#risque'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#risque').ckeditorInstance = editor;
-                })
-                .catch(error => {
-                    console.error('Erreur Risque:', error);
-                });
-        }
-
-        // Initialiser CKEditor pour Systèmes affectés
-        if (!document.querySelector('#systemes_affectes').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#systemes_affectes'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#systemes_affectes').ckeditorInstance = editor;
-                })
-                .catch(error => {
-                    console.error('Erreur Systèmes affectés:', error);
-                });
-        }
-
-        // Initialiser CKEditor pour Synthèse
-        if (!document.querySelector('#synthese').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#synthese'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#synthese').ckeditorInstance = editor;
-                })
-                .catch(error => {
-                    console.error('Erreur Synthèse:', error);
-                });
-        }
-
-        // Initialiser CKEditor pour Solution
-        if (!document.querySelector('#solution').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#solution'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#solution').ckeditorInstance = editor;
-                })
-                .catch(error => {
-                    console.error('Erreur Solution:', error);
-                });
-        }
-    });
-</script>

@@ -70,7 +70,7 @@
     </nav>
     --}}
 
-    <nav class="sidebar">
+   <nav class="sidebar">
     <div class="sidebar-header">
         <a href="{{ route('dashboard') }}" class="sidebar-brand">
             CERT<span>BF</span>
@@ -81,10 +81,11 @@
             <span></span>
         </div>
     </div>
+
     <div class="sidebar-body">
         <ul class="nav">
 
-            {{-- Dashboard --}}
+            {{-- Tableau de bord --}}
             <li class="nav-item">
                 <a href="{{ route('dashboard') }}" class="nav-link">
                     <i class="link-icon" data-feather="home"></i>
@@ -92,20 +93,51 @@
                 </a>
             </li>
 
-            {{-- Admin --}}
-            {{-- @can('role', 'admin') Affiché seulement si l'utilisateur est admin --}}
-            <li class="nav-item nav-category">Administrateur</li>
+            {{-- Bulletin de sécurité numérique --}}
+            <li class="nav-item nav-category">Bulletin de Sécurité</li>
+            <li class="nav-item">
+                <a href="{{ route('alertes.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="alert-triangle"></i>
+                    <span class="link-title">Alertes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('type_alertes.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="tag"></i>
+                    <span class="link-title">Types d'Alerte</span>
+                </a>
+            </li>
 
+            {{-- Incidents --}}
+            <li class="nav-item nav-category">Incidents</li>
+            <li class="nav-item">
+                <a href="{{ route('incidents.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="activity"></i>
+                    <span class="link-title">Incidents</span>
+                </a>
+            </li>
+
+            {{-- Flux et API externes --}}
+            <li class="nav-item nav-category">Flux / API Externes</li>
+            <li class="nav-item">
+                <a href="{{ route('feedsources.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="rss"></i>
+                    <span class="link-title">Sources de Flux / API</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('vulnerabilities.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="shield"></i>
+                    <span class="link-title">Vulnérabilités</span>
+                </a>
+            </li>
+
+            {{-- Administration --}}
+            <li class="nav-item nav-category">Administration</li>
             <li class="nav-item">
                 <a href="{{ route('utilisateurs.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
                     <span class="link-title">Utilisateurs</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('roles.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="key"></i>
-                    <span class="link-title">Rôles</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -114,26 +146,21 @@
                     <span class="link-title">Groupes</span>
                 </a>
             </li>
-            {{-- @endcan --}}
-
-            {{-- Paramétrage --}}
-            <li class="nav-item nav-category">Paramétrage</li>
             <li class="nav-item">
-                <a href="{{ route('type_alertes.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="slack"></i>
-                    <span class="link-title">Type Alerte</span>
-                </a>
-            </li>
-
-            {{-- Alertes --}}
-            <li class="nav-item nav-category">Alertes</li>
-            <li class="nav-item">
-                <a href="{{ route('alertes.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="alert-circle"></i>
-                    <span class="link-title">Alertes</span>
+                <a href="{{ route('roles.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="lock"></i>
+                    <span class="link-title">Rôles</span>
                 </a>
             </li>
 
         </ul>
     </div>
 </nav>
+
+
+  {{-- Admin --}}
+            {{-- @can('role', 'admin') Affiché seulement si l'utilisateur est admin --}}
+            
+            {{-- @endcan --}}
+
+            {{-- Paramétrage --}}

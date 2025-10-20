@@ -1,11 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* limiter la hauteur de la modal-body et activer le scroll vertical */
+.bd-example-modal-xl .modal-body {
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+</style>
 <div class="container mt-4">
-    <h1>Types d'alerte</h1>
+    <h3 class="mb-4">Types Alerte</h3>
 
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">Ajouter un type d'alerte</button>
 
+
+    @include('type_alertes.create')
+    &nbsp;&nbsp;&nbsp;
     @include('type_alertes.table', ['type_alertes' => $type_alertes])
     
     @foreach($type_alertes as $typeAlerte)
@@ -13,6 +23,46 @@
         @include('type_alertes.edit', ['typeAlerte' => $typeAlerte])
     @endforeach
 
-    @include('type_alertes.create')
+  
 </div>
 @endsection
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const modalSelector = '.bd-example-modal-xl';
+  const modal = document.querySelector(modalSelector);
+  const editorIds = ['risque','systemes_affectes','synthese','solution','tinymceExample'];
+
+  function initEditors() {
+    editorIds.forEach(id => {
+      if (!document.getElementById(id)) return;
+      if (tinymce.get(id)) return;
+      tinymce.init({
+        selector: '#' + id,
+        plugins: "advlist anchor autolink charmap code fullscreen help image insertdatetime link lists media preview searchreplace table visualblocks",
+        toolbar: "undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image",
+        height: 220
+      });
+    });
+  }
+
+  function removeEditors() {
+    editorIds.forEach(id => {
+      const ed = tinymce.get(id);
+      if (ed) tinymce.remove(ed);
+    });
+  }
+
+  if (modal) {
+    // native and jQuery bindings (BS4/BS5 compatibility)
+    modal.addEventListener('shown.bs.modal', initEditors);
+    modal.addEventListener('hidden.bs.modal', removeEditors);
+    if (window.jQuery) {
+      $(modalSelector).on('shown.bs.modal', initEditors);
+      $(modalSelector).on('hidden.bs.modal', removeEditors);
+    }
+  } else {
+    // page without modal
+    initEditors();
+  }
+});
+</script>

@@ -1,9 +1,11 @@
 <div class="modal fade" id="showModal{{ $groupe->id }}" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-info text-white">
-                <h5 class="modal-title">Détails du Groupe</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Détails du Groupe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
             </div>
             <div class="modal-body">
                 <p><strong>Libellé :</strong> {{ $groupe->libelle }}</p>

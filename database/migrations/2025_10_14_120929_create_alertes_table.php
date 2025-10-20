@@ -21,7 +21,7 @@ return new class extends Migration
             
             $table->date('date')->nullable();
             $table->string('severite')->nullable();
-            $table->json('etat')->nullable();
+            $table->string('etat')->nullable();
 
             $table->date('date_initial')->nullable();
             $table->date('date_traite')->nullable();

@@ -7,7 +7,9 @@ use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\TypeAlerteController;
 use App\Http\Controllers\AlerteController;
 use App\Http\Controllers\IncidentController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\FeedSourceController;
+use App\Http\Controllers\VulnerabiliteController;
+
 
 Route::get('/', function () {return view('auth.login');})->name('pagelogin');
 Route::post('/login', [UtilisateurController::class, 'login'])->name('login');
@@ -22,12 +24,14 @@ Route::post('/incidents', [IncidentController::class, 'store'])->name('incidents
 
 
 
-Route::middleware(['auth', 'session.timeout'])->group(function () {
+// Route::middleware(['auth', 'session.timeout'])->group(function () {
 
 
         Route::get('/dashbord', function () { return view('dashboard');})->name('dashboard');
 
-        /** Utilisateur */
+        /*******************************************************************************************************************
+     *********************************** ROUTES UTILISATEURS **********************************************************
+     *******************************************************************************************************************/
         Route::get('/utilisateurs', [UtilisateurController::class, 'index'])->name('utilisateurs.index');
         Route::get('/utilisateurs/create', [UtilisateurController::class, 'create'])->name('utilisateurs.create');
         Route::post('/utilisateurs', [UtilisateurController::class, 'store'])->name('utilisateurs.store');
@@ -38,8 +42,9 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
         Route::get('/profile', [UtilisateurController::class, 'profile'])->name('utilisateur.profile');
 
 
-
-        /* ******  Role    */
+        /*******************************************************************************************************************
+     *********************************** ROUTES ROLES **********************************************************
+     *******************************************************************************************************************/
 
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
@@ -49,7 +54,9 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
         Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
         Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
-        /******Groupe */
+       /*******************************************************************************************************************
+     *********************************** ROUTES GROUPES **********************************************************
+     *******************************************************************************************************************/
         Route::get('/groupes', [GroupeController::class, 'index'])->name('groupes.index');
         Route::get('/groupes/create', [GroupeController::class, 'create'])->name('groupes.create');
         Route::post('/groupes', [GroupeController::class, 'store'])->name('groupes.store');
@@ -58,7 +65,9 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
         Route::put('/groupes/{groupe}', [GroupeController::class, 'update'])->name('groupes.update');
         Route::delete('/groupes/{groupe}', [GroupeController::class, 'destroy'])->name('groupes.destroy');
 
-        /***Type alerte */
+       /*******************************************************************************************************************
+     *********************************** ROUTES TYPE ALERTE **********************************************************
+     *******************************************************************************************************************/
         Route::get('/type-alertes', [TypeAlerteController::class, 'index'])->name('type_alertes.index');
         Route::get('/type-alertes/create', [TypeAlerteController::class, 'create'])->name('type_alertes.create');
         Route::post('/type-alertes', [TypeAlerteController::class, 'store'])->name('type_alertes.store');
@@ -67,7 +76,9 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
         Route::put('/type-alertes/{id}', [TypeAlerteController::class, 'update'])->name('type_alertes.update');
         Route::delete('/type-alertes/{typeAlerte}', [TypeAlerteController::class, 'destroy'])->name('type_alertes.destroy');
 
-        /*** Alerte */
+        /*******************************************************************************************************************
+     *********************************** ROUTES ALERTE **********************************************************
+     *******************************************************************************************************************/
         Route::get('/alertes', [AlerteController::class, 'index'])->name('alertes.index');
         Route::get('/alertes/create', [AlerteController::class, 'create'])->name('alertes.create');
         Route::post('/alertes', [AlerteController::class, 'store'])->name('alertes.store');
@@ -77,11 +88,33 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
         Route::delete('/alertes/{alerte}', [AlerteController::class, 'destroy'])->name('alertes.destroy');
 
 
-        /**incident */
+        /*******************************************************************************************************************
+     *********************************** ROUTES INCIDENTS **********************************************************
+     *******************************************************************************************************************/
         Route::get('/incidents', [IncidentController::class, 'index'])->name('incidents.index');
         Route::get('/incidents/{incident}', [IncidentController::class, 'show'])->name('incidents.show');
 
+     
+
         Route::post('/logout', [UtilisateurController::class, 'logout'])->name('logout');
 
+        /*******************************************************************************************************************
+     *********************************** ROUTES FEEDSOURCES **********************************************************
+     *******************************************************************************************************************/
+        Route::get('/feedsources', [FeedSourceController::class, 'index'])->name('feedsources.index');
+        Route::get('/feedsources/create', [FeedSourceController::class, 'create'])->name('feedsources.create');
+        Route::post('/feedsources', [FeedSourceController::class, 'store'])->name('feedsources.store');
+        Route::get('/feedsources/{feedSource}', [FeedSourceController::class, 'show'])->name('feedsources.show');
+        Route::get('/feedsources/{feedSource}/edit', [FeedSourceController::class, 'edit'])->name('feedsources.edit');
+        Route::put('/feedsources/{id}', [FeedSourceController::class, 'update'])->name('feedsources.update');
+        Route::delete('/feedsources/{feedSource}', [FeedSourceController::class, 'destroy'])->name('feedsources.destroy');
+
+      /*******************************************************************************************************************
+     *********************************** ROUTES VULNERABITE EXTERNE **********************************************************
+     *******************************************************************************************************************/
+        Route::get('/vulnerabilities', [VulnerabiliteController::class, 'index'])->name('vulnerabilities.index');
+        Route::get('/vulnerabilities/{vulnerabilite}', [VulnerabiliteController::class, 'show'])->name('vulnerabilities.show');
+
+
 // });
-});
+  

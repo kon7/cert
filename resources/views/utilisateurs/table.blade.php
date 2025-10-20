@@ -1,6 +1,7 @@
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
+<table class="table table-hover table-bordered table-striped table-responsive-sm" id="utilisateur-table">
+    <thead>
         <tr>
+             <th>#</th>
             <th>Matricule</th>
             <th>Nom</th>
             <th>Prénom</th>
@@ -12,6 +13,7 @@
     <tbody>
         @foreach($utilisateurs as $utilisateur)
         <tr>
+            <td></td>
             <td>{{ $utilisateur->matricule }}</td>
             <td>{{ $utilisateur->nom }}</td>
             <td>{{ $utilisateur->prenom }}</td>
@@ -25,8 +27,8 @@
                     @endforelse
             </td>
             <td>
-                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#showModal{{ $utilisateur->id }}">Voir</button>
-                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $utilisateur->id }}">Éditer</button>
+                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#showModal{{ $utilisateur->id }}">Voir</button>
+                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $utilisateur->id }}">Éditer</button>
                 <form action="{{ route('utilisateurs.destroy', $utilisateur->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
@@ -37,3 +39,41 @@
         @endforeach
     </tbody>
 </table>
+<script>
+
+        $(function () {
+            // Datatable parameters
+            var t = $('#utilisateur-table').DataTable({
+                "oLanguage": {
+                    "sUrl": "{{ url('datatables_french.json') }}"
+                },
+                'destroy': true,
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                'pageLength': 10,
+                'order': [
+                    [1, "asc"]
+                ],
+                'columnDefs': [{
+                    'targets': [0, 6],
+                    'searchable': false,
+                    'orderable': false
+                }]
+            });
+
+            t.on('order.dt search.dt', function () {
+                t.column(0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+        });
+
+ </script>
