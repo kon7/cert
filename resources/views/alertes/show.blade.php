@@ -89,17 +89,16 @@
             <hr>
 
             <!-- Section Métadonnées -->
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-md-4">
                     <p class="text-muted small"><strong>Créé par :</strong> {{ $alerte->created_by ?? 'N/A' }}</p>
                 </div>
+                @isset($alerte->updated_by)
                 <div class="col-md-4">
                     <p class="text-muted small"><strong>Modifié par :</strong> {{ $alerte->updated_by ?? 'N/A' }}</p>
                 </div>
-                <div class="col-md-4">
-                    <p class="text-muted small"><strong>Supprimé par :</strong> {{ $alerte->deleted_by ?? 'N/A' }}</p>
-                </div>
-            </div> --}}
+                @endisset
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

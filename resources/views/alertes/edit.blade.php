@@ -79,25 +79,29 @@
             <!-- Ligne 6 : Risque (pleine largeur avec CKEditor) -->
             <div class="mb-2">
                 <label>Risque :</label>
-                <textarea name="risque" id="risque_edit_{{ $alerte->id }}" class="form-control">{{ $alerte->risque }}</textarea>
+                <textarea name="risque" id="risque_edit_{{ $alerte->id }}" class="form-control tinymce">{{ $alerte->risque }}</textarea>
             </div>
 
             <!-- Ligne 7 : Systèmes affectés (pleine largeur avec CKEditor) -->
             <div class="mb-2">
                 <label>Systèmes affectés :</label>
-                <textarea name="systemes_affectes" id="systemes_affectes_edit_{{ $alerte->id }}" class="form-control">{{ $alerte->systemes_affectes }}</textarea>
+                <textarea name="systemes_affectes" id="systemes_affectes_edit_{{ $alerte->id }}" class="form-control tinymce">{{ $alerte->systemes_affectes }}</textarea>
             </div>
 
             <!-- Ligne 8 : Synthèse (pleine largeur avec CKEditor) -->
             <div class="mb-2">
                 <label>Synthèse :</label>
-                <textarea name="synthese" id="synthese_edit_{{ $alerte->id }}" class="form-control">{{ $alerte->synthese }}</textarea>
+                <textarea name="synthese" id="synthese_edit_{{ $alerte->id }}" class="form-control tinymce">{{ $alerte->synthese }}</textarea>
             </div>
 
             <!-- Ligne 9 : Solution (pleine largeur avec CKEditor) -->
             <div class="mb-2">
                 <label>Solution :</label>
-                <textarea name="solution" id="solution_edit_{{ $alerte->id }}" class="form-control">{{ $alerte->solution }}</textarea>
+                <textarea name="solution" id="solution_edit_{{ $alerte->id }}" class="form-control tinymce">{{ $alerte->solution }}</textarea>
+            </div>
+             <div class="mb-2">
+                <label>Source :</label>
+                <textarea name="source" id="source_edit_{{ $alerte->id }}" class="form-control tinymce">{{ $alerte->source }}</textarea>
             </div>
         </div>
         <div class="modal-footer">
@@ -110,51 +114,53 @@
 </div>
 
 <script>
-    // Initialiser CKEditor pour le modal d'édition spécifique
-    document.getElementById('editModal{{ $alerte->id }}').addEventListener('shown.bs.modal', function () {
-        const editorConfig = {
-            language: 'fr',
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'undo', 'redo']
-        };
-
-        // Risque
-        if (!document.querySelector('#risque_edit_{{ $alerte->id }}').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#risque_edit_{{ $alerte->id }}'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#risque_edit_{{ $alerte->id }}').ckeditorInstance = editor;
-                })
-                .catch(error => console.error('Erreur Risque:', error));
-        }
-
-        // Systèmes affectés
-        if (!document.querySelector('#systemes_affectes_edit_{{ $alerte->id }}').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#systemes_affectes_edit_{{ $alerte->id }}'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#systemes_affectes_edit_{{ $alerte->id }}').ckeditorInstance = editor;
-                })
-                .catch(error => console.error('Erreur Systèmes affectés:', error));
-        }
-
-        // Synthèse
-        if (!document.querySelector('#synthese_edit_{{ $alerte->id }}').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#synthese_edit_{{ $alerte->id }}'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#synthese_edit_{{ $alerte->id }}').ckeditorInstance = editor;
-                })
-                .catch(error => console.error('Erreur Synthèse:', error));
-        }
-
-        // Solution
-        if (!document.querySelector('#solution_edit_{{ $alerte->id }}').ckeditorInstance) {
-            ClassicEditor
-                .create(document.querySelector('#solution_edit_{{ $alerte->id }}'), editorConfig)
-                .then(editor => {
-                    document.querySelector('#solution_edit_{{ $alerte->id }}').ckeditorInstance = editor;
-                })
-                .catch(error => console.error('Erreur Solution:', error));
-        }
+document.addEventListener('DOMContentLoaded', function () {
+  // Initialise TinyMCE for target element (element is a textarea DOM node)
+  function initTinyForElement(el) {
+    if (!el.id) {
+      // ensure each textarea has an id (TinyMCE needs it to manage editors)
+      el.id = 'tinymce_' + Math.random().toString(36).substr(2, 9);
+    }
+    if (tinymce.get(el.id)) return;
+    tinymce.init({
+      target: el,
+      plugins: "advlist anchor autolink charmap code fullscreen help image insertdatetime link lists media preview searchreplace table visualblocks",
+      toolbar: "undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image",
+      height: 220,
+      menubar: false
     });
+  }
+
+  function removeTinyForElement(el) {
+    if (!el.id) return;
+    const ed = tinymce.get(el.id);
+    if (ed) tinymce.remove(ed);
+  }
+  function initTinyInScope(scope) {
+    const nodes = (scope || document).querySelectorAll('textarea.tinymce');
+    nodes.forEach(initTinyForElement);
+  }
+  function removeTinyInScope(scope) {
+    const nodes = (scope || document).querySelectorAll('textarea.tinymce');
+    nodes.forEach(removeTinyForElement);
+  }
+
+  // Init editors present on page (outside modals)
+  initTinyInScope(document);
+
+  // For each modal, init/destroy editors when shown/hidden
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('shown.bs.modal', function () {
+      initTinyInScope(modal);
+    });
+    modal.addEventListener('hidden.bs.modal', function () {
+      removeTinyInScope(modal);
+    });
+    // jQuery fallback (Bootstrap jQuery events)
+    if (window.jQuery) {
+      $(modal).on('shown.bs.modal', function () { initTinyInScope(modal); });
+      $(modal).on('hidden.bs.modal', function () { removeTinyInScope(modal); });
+    }
+     });
+});
 </script>

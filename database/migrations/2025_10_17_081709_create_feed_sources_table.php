@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('url');              
             $table->enum('type', ['rss', 'api']); 
             $table->boolean('active')->default(true);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
         });
     }

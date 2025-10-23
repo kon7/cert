@@ -9,7 +9,13 @@ class Groupe extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['libelle', 'description'];
+    protected $fillable = 
+    ['libelle',
+     'description',
+    'created_by',
+    'updated_by',
+    'deleted_by',
+    ];
 
     
 

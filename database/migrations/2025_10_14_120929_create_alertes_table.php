@@ -27,16 +27,18 @@ return new class extends Migration
             $table->date('date_traite')->nullable();
             
             $table->string('concerne')->nullable();
-            $table->string('risque')->nullable();
-            $table->string('systemes_affectes')->nullable();
+            $table->text('risque')->nullable();
+            $table->text('systemes_affectes')->nullable();
 
             $table->text('synthese')->nullable();
             $table->text('solution')->nullable();
+            $table->text('source')->nullable();
 
             // Champs de traçabilité
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
-            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
+
 
             $table->timestamps();
             $table->softDeletes();

@@ -20,6 +20,10 @@
             <span class="badge bg-secondary">Non</span>
         @endif
     </p>
+      <p><strong>Créé par:</strong> {{ $feed->created_by }}</p>
+            @isset($feed->updated_by)
+            <p><strong>Modifié par:</strong> {{ $feed->updated_by }}</p>
+            @endisset
 
     <div class="text-end">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

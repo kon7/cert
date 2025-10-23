@@ -16,6 +16,10 @@
                 @empty
                     <em>Aucun rôle assigné</em>
                 @endforelse
+                 <p><strong>Créé par:</strong> {{ $groupe->created_by }}</p>
+            @isset($groupe->updated_by)
+            <p><strong>Modifié par:</strong> {{ $groupe->updated_by }}</p>
+            @endisset
             </div>
         </div>
     </div>

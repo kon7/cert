@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Groupe;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupeController extends Controller
 {
@@ -38,6 +39,7 @@ class GroupeController extends Controller
             'roles' => 'nullable|array',
             'roles.*' => 'exists:roles,id',
         ]);
+        $validated['created_by'] = optional(Auth::user())->matricule;
 
         $groupe = Groupe::create($validated);
 
@@ -79,7 +81,7 @@ class GroupeController extends Controller
             'roles' => 'nullable|array',
             'roles.*' => 'exists:roles,id',
         ]);
-
+        $validated['updated_by'] = optional(Auth::user())->matricule;
         $groupe->update($validated);
 
         // Synchronise les rôles sélectionnés

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             
             // Champs de traçabilité
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
-            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
 
             $table->timestamps();
             $table->softDeletes(); // pour deleted_at

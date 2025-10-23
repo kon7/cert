@@ -15,13 +15,16 @@
         <tr>
             <td></td>
             <td>{{ $alerte->reference }}</td>
-            <td>{{ $alerte->intitule }}</td>
+            <td>{{ Str::limit($alerte->intitule,25 )}}</td>
             <td>{{ $alerte->typeAlerte->libelle ?? '' }}</td>
             <td>{{ $alerte->date }}</td>
             <td>{{$alerte->etat}}</td>
             <td>
                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#showModal{{ $alerte->id }}">Voir</button>
                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $alerte->id }}">Modifier</button>
+                <a href="{{ route('alertes.imprimer', $alerte->id) }}" target="_blank" class="btn btn-primary btn-sm">
+                        Imprimer
+                    </a>
                 <form action="{{ route('alertes.destroy', $alerte) }}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')

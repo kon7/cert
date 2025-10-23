@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             // $table->foreignId('groupe_id')->constrained('groupes')->onDelete('cascade');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
         });
     }

@@ -36,7 +36,7 @@ class TypeAlerteController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $validated['created_by'] = Auth::id();
+       $validated['created_by'] = optional(Auth::user())->matricule;
 
         Type_alerte::create($validated);
 
@@ -69,9 +69,9 @@ class TypeAlerteController extends Controller
         'libelle' => 'required|string|max:255',
         'description' => 'nullable|string',
     ]);
-
+    $validated['updated_by'] = optional(Auth::user())->matricule;
     $typeAlerte = Type_alerte::findOrFail($id);
-    $validated['updated_by'] = Auth::id();
+    
 
     $typeAlerte->update($validated);
 

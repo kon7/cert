@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FeedSource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class FeedSourceController extends Controller
 {
@@ -38,14 +38,14 @@ class FeedSourceController extends Controller
         ]);
 
          $validated['active'] = $request->has('active') ? 1 : 0;
+         $validated['created_by'] = optional(Auth::user())->matricule;
 
         FeedSource::create($validated);
         cache()->flush();
 
       return redirect()
         ->route('feedsources.index')
-        ->with('success', 'Source mise à jour avec succès.')
-        ->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        ->with('success', 'Source mise à jour avec succès.');
     }
     
 
@@ -76,7 +76,8 @@ class FeedSourceController extends Controller
             'url' => 'required|url',
             'type' => 'required|in:rss,api',
         ]);
-         $validated['active'] = $request->has('active') ? 1 : 0;
+        $validated['active'] = $request->has('active') ? 1 : 0;
+        $validated['updated_by'] = optional(Auth::user())->matricule;
         $feedSource = FeedSource::findOrFail($id);
        
         $feedSource->update($validated);

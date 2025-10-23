@@ -14,6 +14,9 @@ class FeedSource extends Model
         'url',
         'type',
         'active',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $casts = [

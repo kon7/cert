@@ -4,8 +4,8 @@
             <th>#</th>
             <th>Libelle</th>
             <th>Description</th>
-            <th>Créé par</th>
-            <th>Modifié par</th>
+            {{-- <th>Créé par</th>
+            <th>Modifié par</th> --}}
             <th>Actions</th>
         </tr>
     </thead>
@@ -15,8 +15,8 @@
              <td></td>
             <td>{{ $typeAlerte->libelle }}</td>
             <td>{{ $typeAlerte->description }}</td>
-            <td>{{ $typeAlerte->created_by }}</td>
-            <td>{{ $typeAlerte->updated_by }}</td>
+            {{-- <td>{{ $typeAlerte->created_by }}</td>
+            <td>{{ $typeAlerte->updated_by }}</td> --}}
             <td>
                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#showModal{{ $typeAlerte->id }}">Voir</button>
                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $typeAlerte->id }}">Modifier</button>
@@ -51,7 +51,7 @@
                     [1, "asc"]
                 ],
                 'columnDefs': [{
-                    'targets': [0, 5],
+                    'targets': [0, 3],
                     'searchable': false,
                     'orderable': false
                 }]

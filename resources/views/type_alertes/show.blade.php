@@ -11,8 +11,10 @@
             <p><strong>Libelle:</strong> {{ $typeAlerte->libelle }}</p>
             <p><strong>Description:</strong> {{ $typeAlerte->description }}</p>
             <p><strong>Créé par:</strong> {{ $typeAlerte->created_by }}</p>
+            @isset($typeAlerte->updated_by)
             <p><strong>Modifié par:</strong> {{ $typeAlerte->updated_by }}</p>
-            <p><strong>Supprimé par:</strong> {{ $typeAlerte->deleted_by }}</p>
+            @endisset
+            {{-- <p><strong>Supprimé par:</strong> {{ $typeAlerte->deleted_by }}</p> --}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>

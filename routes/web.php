@@ -86,6 +86,7 @@ Route::post('/incidents', [IncidentController::class, 'store'])->name('incidents
         Route::get('/alertes/{alerte}/edit', [AlerteController::class, 'edit'])->name('alertes.edit');
         Route::put('/alertes/{alerte}', [AlerteController::class, 'update'])->name('alertes.update');
         Route::delete('/alertes/{alerte}', [AlerteController::class, 'destroy'])->name('alertes.destroy');
+        Route::get('/alertes/{id}/impression', [AlerteController::class, 'imprimer'])->name('alertes.imprimer');
 
 
         /*******************************************************************************************************************

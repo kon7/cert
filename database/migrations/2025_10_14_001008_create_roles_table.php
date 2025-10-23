@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('libelle');
             $table->text('description')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
         });
     }

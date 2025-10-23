@@ -25,6 +25,7 @@ class Alerte extends Model
         'systemes_affectes',
         'synthese',
         'solution',
+        'source',
         'created_by',
         'updated_by',
         'deleted_by',

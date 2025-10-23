@@ -6,6 +6,7 @@ use App\Models\Alerte;
 use Illuminate\Http\Request;
 use App\Models\Type_alerte;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AlerteController extends Controller
 {
@@ -35,23 +36,24 @@ class AlerteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'reference' => 'required|string|max:100|unique:alertes',
-            'intitule' => 'required|string|max:255',
+            'reference' => 'required|string|unique:alertes',
+            'intitule' => 'required|string',
             'type_alerte_id' => 'required|exists:type_alertes,id',
             'date' => 'nullable|date',
-            'severite' => 'nullable|string|max:100',
+            'severite' => 'nullable|string',
             'etat' => 'nullable',
             'date_initial' => 'nullable|date',
             'date_traite' => 'nullable|date',
-            'concerne' => 'nullable|string|max:255',
-            'risque' => 'nullable|string|max:255',
-            'systemes_affectes' => 'nullable|string|max:255',
+            'concerne' => 'nullable|string',
+            'risque' => 'nullable|string',
+            'systemes_affectes' => 'nullable|string',
             'synthese' => 'nullable|string',
             'solution' => 'nullable|string',
+            'source' => 'nullable|string',
         ]);
 
         // $validated['etat'] = json_encode($validated['etat'] ?? []);
-        $validated['created_by'] = Auth::id();
+        $validated['created_by'] = optional(Auth::user())->matricule;
 
         Alerte::create($validated);
 
@@ -83,23 +85,24 @@ class AlerteController extends Controller
     public function update(Request $request, Alerte $alerte)
     {
         $validated = $request->validate([
-            'reference' => 'required|string|max:100|unique:alertes,reference,' . $alerte->id,
-            'intitule' => 'required|string|max:255',
+            'reference' => 'required|string|unique:alertes,reference,' . $alerte->id,
+            'intitule' => 'required|string',
             'type_alerte_id' => 'required|exists:type_alertes,id',
             'date' => 'nullable|date',
-            'severite' => 'nullable|string|max:100',
+            'severite' => 'nullable|string',
             'etat' => 'nullable',
             'date_initial' => 'nullable|date',
             'date_traite' => 'nullable|date',
-            'concerne' => 'nullable|string|max:255',
-            'risque' => 'nullable|string|max:255',
-            'systemes_affectes' => 'nullable|string|max:255',
+            'concerne' => 'nullable|string',
+            'risque' => 'nullable|string',
+            'systemes_affectes' => 'nullable|string',
             'synthese' => 'nullable|string',
             'solution' => 'nullable|string',
+            'source' => 'nullable|string',
         ]);
 
         // $validated['etat'] = json_encode($validated['etat'] ?? []);
-        $validated['updated_by'] = Auth::id();
+        $validated['updated_by'] = optional(Auth::user())->matricule;
 
         $alerte->update($validated);
 
@@ -132,11 +135,22 @@ class AlerteController extends Controller
         }
     
 
-    public function certShow($id)
-        {
-            $alerte = Alerte::with('typeAlerte')->findOrFail($id);
+    // public function certShow($id)
+    //     {
+    //         $alerte = Alerte::with('typeAlerte')->findOrFail($id);
 
-            return view('cert_detail', compact('alerte'));
-        }
+    //         return view('cert_detail', compact('alerte'));
+    //     }
+            /*****************Imprimer ***************************/
+        public function imprimer($id)
+            {
+
+                $alerte = Alerte::with('typeAlerte')->findOrFail($id);
+
+                $pdf = Pdf::loadView('alertes.impression', compact('alerte'))
+                        ->setPaper('a4', 'portrait');
+
+                return $pdf->stream('Alerte_'.$alerte->reference.'.pdf');
+            }
 
 }

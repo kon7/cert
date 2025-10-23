@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -33,6 +34,8 @@ class RoleController extends Controller
             'libelle' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
+        $validated['created_by'] = Auth::user()->matricule;
+        $validated['created_by'] = optional(Auth::user())->matricule;
 
         Role::create($validated);
         
@@ -66,6 +69,8 @@ class RoleController extends Controller
             'libelle' => 'required|string|max:255',
             'description' => 'nullable|string',
         ]);
+
+        $validated['updated_by'] = optional(Auth::user())->matricule;
 
         $role->update($validated);
 

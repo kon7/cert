@@ -45,6 +45,8 @@ class UtilisateurController extends Controller
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['created_by'] = optional(Auth::user())->matricule;
+
 
        $utilisateur = Utilisateur::create($validated);
         if (!empty($validated['groupe_id'])) {
@@ -85,7 +87,7 @@ class UtilisateurController extends Controller
             'password' => 'nullable|string|min:6|confirmed',
             'groupe_id.*' => 'exists:groupes,id',
         ]);
-
+        $validated['updated_by'] = optional(Auth::user())->matricule;
         if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
         } else {

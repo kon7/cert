@@ -18,6 +18,10 @@
                 @empty
                     <em>Aucun groupe assigné</em>
                 @endforelse
+               <p><strong>Créé par:</strong> {{ $utilisateur->created_by }}</p>
+            @isset($utilisateur->updated_by)
+            <p><strong>Modifié par:</strong> {{ $utilisateur->updated_by }}</p>
+            @endisset
           
         </div>
         <div class="modal-footer">
