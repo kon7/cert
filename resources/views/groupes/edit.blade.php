@@ -21,7 +21,7 @@
 
                 <div class="mb-3">
                     <label>Rôles associés</label>
-                    <select name="roles[]" class="duallistbox" multiple>
+                    <select name="roles[]" class="js-example-basic-multiple form-control" multiple="multiple">
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}" 
                                 {{ $groupe->roles->contains($role->id) ? 'selected' : '' }}>

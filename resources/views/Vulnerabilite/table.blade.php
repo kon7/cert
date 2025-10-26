@@ -1,3 +1,5 @@
+<div class="card">
+<div class="card-body">
 <table class="table table-hover table-bordered table-striped" id="vulnerability-table">
     <thead class="table-light">
         <tr>
@@ -40,3 +42,5 @@
         @endforelse
     </tbody>
 </table>
+</div>
+</div>

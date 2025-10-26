@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Ajouter un type alerte</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Ajouter un type alerte</button><br>
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

@@ -18,9 +18,9 @@
             <input type="password" name="password" class="form-control mb-2" placeholder="Nouveau mot de passe">
             <input type="password" name="password_confirmation" class="form-control mb-2" placeholder="Confirmer le mot de passe">
             
-            <label>Groupe</label>
+           <label>Groupe</label>
            
-          <select name="groupe_id[]" class="duallistbox" multiple>
+          <select name="groupe_id[]" class="js-example-basic-multiple form-control" multiple="multiple">
                         @foreach($groupes as $groupe)
                             <option value="{{ $groupe->id }}" 
                                 {{ $utilisateur->groupes->contains($groupe->id) ? 'selected' : '' }}>

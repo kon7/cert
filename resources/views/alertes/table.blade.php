@@ -1,3 +1,5 @@
+<div class="card">
+<div class="card-body">
 <table class="table table-hover table-bordered table-striped table-responsive-sm" id="alertes-table">
     <thead>
         <tr>
@@ -15,7 +17,7 @@
         <tr>
             <td></td>
             <td>{{ $alerte->reference }}</td>
-            <td>{{ Str::limit($alerte->intitule,25 )}}</td>
+            <td>{{ Str::limit($alerte->intitule,10 )}}</td>
             <td>{{ $alerte->typeAlerte->libelle ?? '' }}</td>
             <td>{{ $alerte->date }}</td>
             <td>{{$alerte->etat}}</td>
@@ -25,17 +27,19 @@
                 <a href="{{ route('alertes.imprimer', $alerte->id) }}" target="_blank" class="btn btn-primary btn-sm">
                         Imprimer
                     </a>
-                <form action="{{ route('alertes.destroy', $alerte) }}" method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette alerte ?')">Supprimer</button>
-                </form>
+                    <form action="{{ route('alertes.destroy', $alerte) }}" method="POST" class="delete-form" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-
+</div>
+</div>
 <script>
 
         $(function () {
@@ -72,5 +76,28 @@
             }).draw();
 
         });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Sélectionne tous les formulaires de suppression
+    document.querySelectorAll('.delete-form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // empêche la soumission immédiate
+
+            Swal.fire({
+                title: 'Êtes-vous sûr de vouloir supprimer ?',
+                text: "Cette action est irréversible.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui, supprimer',
+                cancelButtonText: 'Annuler',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // soumet seulement si confirmé
+                }
+            });
+        });
+    });
+});
 
  </script>

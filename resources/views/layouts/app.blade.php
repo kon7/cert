@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- =========================
-         🌐 META & TITLE
+      META & TITLE
     ========================== --}}
     <title>@yield('title', 'Tableau de bord')</title>
 
     {{-- =========================
-         🎨 CSS PRINCIPAL
+         CSS PRINCIPAL
     ========================== --}}
     <!-- Core CSS -->
    
@@ -28,13 +28,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/style.css') }}">
       
     <link rel="stylesheet" href="{{ asset('assets/vendors/simplemde/simplemde.min.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
      <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/buttons.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/all.min.css') }}">
@@ -44,20 +45,6 @@
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     
    
-    {{-- <!-- Bootstrap 5 (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- DataTables (Bootstrap 5 Theme) -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
-
-    <!-- Icons Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
-     --}}
-
-    {{-- Styles additionnels spécifiques à une page --}}
     @stack('styles')
 </head>
 
@@ -117,10 +104,15 @@
     <script src="{{ asset('assets/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
 
+    <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
+   
     <!-- Template Core JS -->
     <script src="{{ asset('assets/js/template.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+    <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+
 
     {{-- Scripts additionnels spécifiques à une page --}}
     @stack('scripts')

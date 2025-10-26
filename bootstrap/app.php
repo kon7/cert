@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->api(prepend: [
+            \Illuminate\Http\Middleware\HandleCors::class, 
+        ]);
 
           $middleware->web(append: [
             \Illuminate\Cookie\Middleware\EncryptCookies::class,
@@ -31,6 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth' => \App\Http\Middleware\Authenticate::class,
             'session.timeout' => \App\Http\Middleware\CheckSessionTimeout::class,
+            'role' => \App\Http\Middleware\CheckRole::class,
         ]);
 
         

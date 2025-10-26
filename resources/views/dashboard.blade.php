@@ -2,134 +2,93 @@
 
 @section('content')
     <!-- Ajoute ici le contenu de ton dashboard -->
-  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+.gradient-2, .dropdown-mega-menu .ext-link.link-3 a {
+  background-image: linear-gradient(230deg, #fc5286, #ee2917); }
+.gradient-6 {
+  background-image: linear-gradient(135deg, #97ABFF 10%, #123597 100%); }
+.opacity-5 {
+  opacity: 0.5; }
+</style>
+
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
           <div>
-            <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+            <h4 class="mb-3 mb-md-0">Bienvenu(e) : {{ auth()->user()->prenom }}</h4>
           </div>
-          {{-- <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
-              <span class="input-group-addon bg-transparent"><i data-feather="calendar" class=" text-primary"></i></span>
-              <input type="text" class="form-control">
-            </div>
-            <button type="button" class="btn btn-outline-info btn-icon-text mr-2 d-none d-md-block">
-              <i class="btn-icon-prepend" data-feather="download"></i>
-              Import
-            </button>
-            <button type="button" class="btn btn-outline-primary btn-icon-text mr-2 mb-2 mb-md-0">
-              <i class="btn-icon-prepend" data-feather="printer"></i>
-              Print
-            </button>
-            <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
-              <i class="btn-icon-prepend" data-feather="download-cloud"></i>
-              Download Report
-            </button>
-          </div> --}}
+         
         </div>
 
         <div class="row">
           <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow">
               <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
+                <div class="card gradient-6">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Incidents</h6>
-                      {{-- <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> --}}
+                      <h6 class="card-title text-white" style="font-size: 18px;">Incidents</h6>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">39</h3>
+                        <h3 class="mb-2 text-white">
+                          <?php $totalIncident = App\Models\Incident::count();
+                                echo $totalIncident; ?>
+                        </h3>
                         <div class="d-flex align-items-baseline">
-                          {{-- <p class="text-success">
-                            <span>+3.3%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                          </p> --}}
+                         
                         </div>
                       </div>
                       <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart1" class="mt-md-3 mt-xl-0"></div>
+                      <span class="float-right display-5 opacity-5"><i class="fas fa-exclamation-triangle fa-2x fa-inverse"></i></span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
+                <div class="card gradient-2">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Alertes</h6>
-                      {{-- <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> --}}
+                      <h6 class="card-title text-white" style="font-size: 18px;">Alertes</h6>
+                    
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">45</h3>
+                        <h3 class="mb-2 text-white">
+                          <?php $totalAlerte = App\Models\Alerte::count();
+                                echo $totalAlerte; ?>
+                        </h3>
                         <div class="d-flex align-items-baseline">
-                          {{-- <p class="text-danger">
-                            <span>-2.8%</span>
-                            <i data-feather="arrow-down" class="icon-sm mb-1"></i>
-                          </p> --}}
+                       
                         </div>
                       </div>
                       <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart2" class="mt-md-3 mt-xl-0"></div>
+                        <span class="float-right display-5 opacity-5"><i class="fas fa-bell fa-2x fa-inverse"></i></span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
+                <div class="card gradient-6">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Articles</h6>
-                      {{-- <div class="dropdown mb-2">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton2">
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> --}}
+                      <h6 class="card-title text-white" style="font-size: 18px;">Incidents traités</h6>
+                      
                     </div>
                     <div class="row">
                       <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">8</h3>
+                        <h3 class="mb-2 text-white">
+                          <?php $totalIncident = App\Models\Incident::count();
+                                echo $totalIncident; ?>
+                        </h3>
                         <div class="d-flex align-items-baseline">
-                          {{-- <p class="text-success">
-                            <span>+2.8%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                          </p> --}}
+                         
                         </div>
                       </div>
                       <div class="col-6 col-md-12 col-xl-7">
-                        <div id="apexChart3" class="mt-md-3 mt-xl-0"></div>
+                        <span class="float-right display-5 opacity-5"><i class="fas fa-check-circle fa-2x fa-inverse"></i></span>
                       </div>
                     </div>
                   </div>
@@ -138,292 +97,126 @@
             </div>
           </div>
         </div> <!-- row -->
+<div class="row mt-4">
+  <div class="col-12 col-xl-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title mb-4">Évolution des incidents par mois</h6>
+        <canvas id="incidentsByMonthChart" style="height: 300px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="row">
-          <div class="col-12 col-xl-12 grid-margin stretch-card">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
-                  <h6 class="card-title mb-0">Revenue</h6>
-                  <div class="dropdown">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton3">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="row align-items-start mb-2">
-                  <div class="col-md-7">
-                    <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
-                  </div>
-                  <div class="col-md-5 d-flex justify-content-md-end">
-                    <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-outline-primary">Today</button>
-                      <button type="button" class="btn btn-outline-primary d-none d-md-block">Week</button>
-                      <button type="button" class="btn btn-primary">Month</button>
-                      <button type="button" class="btn btn-outline-primary">Year</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="flot-wrapper">
-                  <div id="flotChart1" class="flot-chart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> <!-- row -->
-
-        <div class="row">
-          <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Monthly sales</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton4">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <p class="text-muted mb-4">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
-                <div class="monthly-sales-chart-wrapper">
-                  <canvas id="monthly-sales-chart"></canvas>
-                </div>
-              </div> 
-            </div>
-          </div>
-          <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Cloud storage</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton5">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div id="progressbar1" class="mx-auto"></div>
-                <div class="row mt-4 mb-3">
-                  <div class="col-6 d-flex justify-content-end">
-                    <div>
-                      <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Total storage <span class="p-1 ml-1 rounded-circle bg-primary-muted"></span></label>
-                      <h5 class="font-weight-bold mb-0 text-right">8TB</h5>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div>
-                      <label class="d-flex align-items-center tx-10 text-uppercase font-weight-medium"><span class="p-1 mr-1 rounded-circle bg-primary"></span> Used storage</label>
-                      <h5 class="font-weight-bold mb-0">6TB</h5>
-                    </div>
-                  </div>
-                </div>
-                <button class="btn btn-primary btn-block">Upgrade storage</button>
-              </div>
-            </div>
-          </div>
-        </div> <!-- row -->
-
-        <div class="row">
-          <div class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Inbox</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton6">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex flex-column">
-                  <a href="#" class="d-flex align-items-center border-bottom pb-3">
-                    <div class="mr-3">
-                      <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Leonardo Payne</h6>
-                        <p class="text-muted tx-12">12.30 PM</p>
-                      </div>
-                      <p class="text-muted tx-13">Hey! there I'm available...</p>
-                    </div>
-                  </a>
-                  <a href="#" class="d-flex align-items-center border-bottom py-3">
-                    <div class="mr-3">
-                      <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Carl Henson</h6>
-                        <p class="text-muted tx-12">02.14 AM</p>
-                      </div>
-                      <p class="text-muted tx-13">I've finished it! See you so..</p>
-                    </div>
-                  </a>
-                  <a href="#" class="d-flex align-items-center border-bottom py-3">
-                    <div class="mr-3">
-                      <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Jensen Combs</h6>
-                        <p class="text-muted tx-12">08.22 PM</p>
-                      </div>
-                      <p class="text-muted tx-13">This template is awesome!</p>
-                    </div>
-                  </a>
-                  <a href="#" class="d-flex align-items-center border-bottom py-3">
-                    <div class="mr-3">
-                      <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Amiah Burton</h6>
-                        <p class="text-muted tx-12">05.49 AM</p>
-                      </div>
-                      <p class="text-muted tx-13">Nice to meet you</p>
-                    </div>
-                  </a>
-                  <a href="#" class="d-flex align-items-center border-bottom py-3">
-                    <div class="mr-3">
-                      <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-body mb-2">Yaretzi Mayo</h6>
-                        <p class="text-muted tx-12">01.19 AM</p>
-                      </div>
-                      <p class="text-muted tx-13">Hey! there I'm available...</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-7 col-xl-8 stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Projects</h6>
-                  <div class="dropdown mb-2">
-                    <button class="btn p-0" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton7">
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="eye" class="icon-sm mr-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="edit-2" class="icon-sm mr-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="trash" class="icon-sm mr-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="printer" class="icon-sm mr-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="#"><i data-feather="download" class="icon-sm mr-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th class="pt-0">#</th>
-                        <th class="pt-0">Project Name</th>
-                        <th class="pt-0">Start Date</th>
-                        <th class="pt-0">Due Date</th>
-                        <th class="pt-0">Status</th>
-                        <th class="pt-0">Assign</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>NobleUI jQuery</td>
-                        <td>01/01/2020</td>
-                        <td>26/04/2020</td>
-                        <td><span class="badge badge-danger">Released</span></td>
-                        <td>Leonardo Payne</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>NobleUI Angular</td>
-                        <td>01/01/2020</td>
-                        <td>26/04/2020</td>
-                        <td><span class="badge badge-success">Review</span></td>
-                        <td>Carl Henson</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>NobleUI ReactJs</td>
-                        <td>01/05/2020</td>
-                        <td>10/09/2020</td>
-                        <td><span class="badge badge-info-muted">Pending</span></td>
-                        <td>Jensen Combs</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>NobleUI VueJs</td>
-                        <td>01/01/2020</td>
-                        <td>31/11/2020</td>
-                        <td><span class="badge badge-warning">Work in Progress</span>
-                        </td>
-                        <td>Amiah Burton</td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>NobleUI Laravel</td>
-                        <td>01/01/2020</td>
-                        <td>31/12/2020</td>
-                        <td><span class="badge badge-danger-muted text-white">Coming soon</span></td>
-                        <td>Yaretzi Mayo</td>
-                      </tr>
-                      <tr>
-                        <td>6</td>
-                        <td>NobleUI NodeJs</td>
-                        <td>01/01/2020</td>
-                        <td>31/12/2020</td>
-                        <td><span class="badge badge-primary">Coming soon</span></td>
-                        <td>Carl Henson</td>
-                      </tr>
-                      <tr>
-                        <td class="border-bottom">3</td>
-                        <td class="border-bottom">NobleUI EmberJs</td>
-                        <td class="border-bottom">01/05/2020</td>
-                        <td class="border-bottom">10/11/2020</td>
-                        <td class="border-bottom"><span class="badge badge-info-muted">Pending</span></td>
-                        <td class="border-bottom">Jensen Combs</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div> 
-            </div>
-          </div>
-        </div> <!-- row -->
+<div class="row mt-4">
+  <div class="col-12 col-xl-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title mb-4">Évolution des alertes par mois</h6>
+        <canvas id="alertesByMonthChart" style="height: 300px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
 
 			
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+  // sécurité : fournir tableau vide si variable absente
+  var incidentData = @json($incidentData ?? []);
+  var alerteData = @json($alerteData ?? []);
+  var months = [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ];
+
+  function countsByMonth(data) {
+    var counts = Array(12).fill(0);
+    data.forEach(function(item) {
+      var m = parseInt(item.month, 10);
+      var c = parseInt(item.count, 10) || 0;
+      if (!isNaN(m) && m >= 1 && m <= 12) counts[m - 1] = c;
+    });
+    return counts;
+  }
+
+  // incidents
+  var incidentCounts = countsByMonth(incidentData);
+  var incCanvas = document.getElementById('incidentsByMonthChart');
+  if (incCanvas) {
+    var ctx = incCanvas.getContext('2d');
+    if (window._incidentsChart) window._incidentsChart.destroy();
+    window._incidentsChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Nombre d’incidents',
+          data: incidentCounts,
+          backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(153, 102, 255, 0.5)', 
+                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(201, 203, 207, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(54, 162, 235, 0.5)'
+            ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(153, 102, 255)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 159, 64)',
+              'rgb(201, 203, 207)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)'
+            ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+        plugins: { legend: { display: false }, tooltip: { enabled: true } }
+      }
+    });
+  }
+
+  // alertes
+  var alerteCounts = countsByMonth(alerteData);
+  var alCanvas = document.getElementById('alertesByMonthChart');
+  if (alCanvas) {
+    var actx = alCanvas.getContext('2d');
+    if (window._alertesChart) window._alertesChart.destroy();
+    window._alertesChart = new Chart(actx, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Nombre d\'alertes',
+          data: alerteCounts,
+          fill: true,
+          backgroundColor: 'rgba(255, 99, 132, 0.15)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          tension: 0.2,
+          pointRadius: 4
+        }]
+      },
+      options: {
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+        plugins: { legend: { display: false }, tooltip: { enabled: true } }
+      }
+    });
+  }
+</script>
 
 @endsection

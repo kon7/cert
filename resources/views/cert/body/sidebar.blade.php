@@ -94,6 +94,7 @@
             </li>
 
             {{-- Bulletin de sécurité numérique --}}
+             @can('role', 'Alerte')
             <li class="nav-item nav-category">Bulletin de Sécurité</li>
             <li class="nav-item">
                 <a href="{{ route('alertes.index') }}" class="nav-link">
@@ -107,8 +108,9 @@
                     <span class="link-title">Types d'Alerte</span>
                 </a>
             </li>
-
+            @endcan
             {{-- Incidents --}}
+            @can('role', 'Incident')
             <li class="nav-item nav-category">Incidents</li>
             <li class="nav-item">
                 <a href="{{ route('incidents.index') }}" class="nav-link">
@@ -116,8 +118,9 @@
                     <span class="link-title">Incidents</span>
                 </a>
             </li>
-
+            @endcan
             {{-- Flux et API externes --}}
+             @can('role', 'Flux')
             <li class="nav-item nav-category">Flux / API Externes</li>
             <li class="nav-item">
                 <a href="{{ route('feedsources.index') }}" class="nav-link">
@@ -131,8 +134,10 @@
                     <span class="link-title">Vulnérabilités</span>
                 </a>
             </li>
+            @endcan
 
             {{-- Administration --}}
+            @can('role', 'Admin')
             <li class="nav-item nav-category">Administration</li>
             <li class="nav-item">
                 <a href="{{ route('utilisateurs.index') }}" class="nav-link">
@@ -152,7 +157,7 @@
                     <span class="link-title">Rôles</span>
                 </a>
             </li>
-
+            @endcan
         </ul>
     </div>
 </nav>

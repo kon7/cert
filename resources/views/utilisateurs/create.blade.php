@@ -1,6 +1,6 @@
  <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">
             <i class="bi bi-plus-circle me-1"></i> Nouveau utilisateur
-        </button>
+        </button><br><br><br>
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -22,7 +22,7 @@
             <input type="password" name="password_confirmation" class="form-control mb-2" placeholder="Confirmer le mot de passe" required>
             
             <label>Groupe</label>
-            <select multiple name="groupe_id[]" class="form-control dual-listbox">
+            <select name="groupe_id[]" class="js-example-basic-multiple form-control" multiple="multiple">
                 @foreach($groupes as $groupe)
                     <option value="{{ $groupe->id }}">{{ $groupe->libelle }}</option>
                 @endforeach

@@ -44,8 +44,8 @@ class FeedSourceController extends Controller
         cache()->flush();
 
       return redirect()
-        ->route('feedsources.index')
-        ->with('success', 'Source mise à jour avec succès.');
+        ->route('feedsources.index');
+       
     }
     
 
@@ -96,7 +96,7 @@ class FeedSourceController extends Controller
         $feedSource->delete();
 
         return redirect()
-            ->route('feedsources.index')
-            ->with('success', 'Source supprimée avec succès.');
+            ->route('feedsources.index');
+            
     }
 }

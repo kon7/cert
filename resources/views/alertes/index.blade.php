@@ -10,7 +10,7 @@
 }
 </style>
 <div class="container mt-4">
-    <h3 class="mb-4">Alertes</h3>
+    <h4 class="mb-4">Gestion des alertes</h4>
 
     {{-- <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">Ajouter une alerte</button> --}}
 
