@@ -1,3 +1,5 @@
+<div class="card">
+<div class="card-body">
 <table class="table table-hover table-bordered table-striped table-responsive-sm" id="incident-table">
     <thead>
         <tr>
@@ -28,6 +30,8 @@
         @endforelse
     </tbody>
 </table>
+</div>
+</div>
 <script>
 
         $(function () {

@@ -8,19 +8,21 @@
             </button>
         </div>
         <div class="modal-body">
-            <p><strong>Matricule:</strong> {{ $utilisateur->matricule }}</p>
-            <p><strong>Nom:</strong> {{ $utilisateur->nom }}</p>
-            <p><strong>Prénom:</strong> {{ $utilisateur->prenom }}</p>
-            <p><strong>Email:</strong> {{ $utilisateur->email }}</p>
+            <p><strong>Matricule:</strong> {{ $utilisateur->matricule }}</p><br>
+            <p><strong>Nom:</strong> {{ $utilisateur->nom }}</p><br>
+            <p><strong>Prénom:</strong> {{ $utilisateur->prenom }}</p><br>
+            <p><strong>Email:</strong> {{ $utilisateur->email }}</p><br>
              <p><strong>Groupes associés :</strong></p>
                 @forelse($utilisateur->groupes as $groupe)
                     <span class="badge bg-secondary">{{ $groupe->libelle }}</span>
                 @empty
-                    <em>Aucun groupe assigné</em>
+                
+                    <em>Aucun groupe assigné</em><br>
                 @endforelse
-               <p><strong>Créé par:</strong> {{ $utilisateur->created_by }}</p>
+               <br><br>
+               <p><strong>Créé par:</strong> {{ $utilisateur->created_by }}</p><br>
             @isset($utilisateur->updated_by)
-            <p><strong>Modifié par:</strong> {{ $utilisateur->updated_by }}</p>
+            <p><strong>Modifié par:</strong> {{ $utilisateur->updated_by }}</p><br>
             @endisset
           
         </div>

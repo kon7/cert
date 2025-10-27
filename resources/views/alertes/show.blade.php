@@ -9,17 +9,14 @@
         </div>
         <div class="modal-body">
             <!-- Section Informations générales -->
-            <div class="row mb-3">
-                <div class="col-md-6">
+             <div class="row mb-3">
+                <div class="col-md-4">
                     <p><strong>Référence :</strong> {{ $alerte->reference }}</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <p><strong>Type :</strong> {{ $alerte->typeAlerte->libelle ?? 'N/A' }}</p>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <p><strong>Intitulé :</strong> {{ $alerte->intitule }}</p>
                 </div>
             </div>
@@ -32,28 +29,21 @@
                     <p><strong>Sévérité :</strong> {{ $alerte->severite ?? 'N/A' }}</p>
                 </div>
                 <div class="col-md-4">
-                    <p><strong>État :</strong> 
-                      
-                           {{$alerte->etat}}
-                            
-                    </p>
+                    <p><strong>État :</strong> {{ $alerte->etat ?? 'N/A' }}</p>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
+            </div> 
+           <div class="row mb-3">
+                <div class="col-md-4">
                     <p><strong>Date initiale :</strong> {{ $alerte->date_initial ? \Carbon\Carbon::parse($alerte->date_initial)->format('d/m/Y') : 'N/A' }}</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <p><strong>Date traité :</strong> {{ $alerte->date_traite ? \Carbon\Carbon::parse($alerte->date_traite)->format('d/m/Y') : 'N/A' }}</p>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <p><strong>Concerné :</strong> {{ $alerte->concerne ?? 'N/A' }}</p>
                 </div>
             </div>
+
 
             <hr>
 
@@ -83,6 +73,12 @@
                 <h6><strong>Solution :</strong></h6>
                 <div class="border rounded p-3 bg-light">
                     {!! $alerte->solution ?? '<em class="text-muted">Aucune solution proposée</em>' !!}
+                </div>
+            </div>
+               <div class="mb-4">
+                <h6><strong>Source :</strong></h6>
+                <div class="border rounded p-3 bg-light">
+                    {!! $alerte->source ?? '<em class="text-muted">Aucune solution proposée</em>' !!}
                 </div>
             </div>
 

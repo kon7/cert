@@ -8,11 +8,11 @@
           </button>
         </div>
         <div class="modal-body">
-            <p><strong>Libelle:</strong> {{ $typeAlerte->libelle }}</p>
-            <p><strong>Description:</strong> {{ $typeAlerte->description }}</p>
-            <p><strong>Créé par:</strong> {{ $typeAlerte->created_by }}</p>
+            <p><strong>Libelle:</strong> {{ $typeAlerte->libelle }}</p><br>
+            <p><strong>Description:</strong> {{ $typeAlerte->description }}</p><br>
+            <p><strong>Créé par:</strong> {{ $typeAlerte->created_by }}</p><br>
             @isset($typeAlerte->updated_by)
-            <p><strong>Modifié par:</strong> {{ $typeAlerte->updated_by }}</p>
+            <p><strong>Modifié par:</strong> {{ $typeAlerte->updated_by }}</p><br>
             @endisset
             {{-- <p><strong>Supprimé par:</strong> {{ $typeAlerte->deleted_by }}</p> --}}
         </div>

@@ -10,12 +10,9 @@
 }
 </style>
 <div class="container mt-4">
-    <h3 class="mb-4">Types Alerte</h3>
-
-
-
+    <h4 class="mb-4">Types Alerte</h4>
     @include('type_alertes.create')
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
     @include('type_alertes.table', ['type_alertes' => $type_alertes])
     
     @foreach($type_alertes as $typeAlerte)

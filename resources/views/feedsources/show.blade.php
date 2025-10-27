@@ -9,10 +9,10 @@
             </div>
     <div class="modal-body">
     <div class="p-3">
-    <h5 class="border-bottom pb-2 mb-3">{{ $feed->name }}</h5>
+    <h5 class="border-bottom pb-2 mb-3">{{ $feed->name }}</h5><br>
 
-    <p><strong>URL :</strong> <a href="{{ $feed->url }}" target="_blank">{{ $feed->url }}</a></p>
-    <p><strong>Type :</strong> {{ strtoupper($feed->type) }}</p>
+    <p><strong>URL :</strong> <a href="{{ $feed->url }}" target="_blank">{{ $feed->url }}</a></p><br>
+    <p><strong>Type :</strong> {{ strtoupper($feed->type) }}</p><br>
     <p><strong>Active :</strong>
         @if($feed->active)
             <span class="badge bg-success">Oui</span>
@@ -20,9 +20,10 @@
             <span class="badge bg-secondary">Non</span>
         @endif
     </p>
-      <p><strong>Créé par:</strong> {{ $feed->created_by }}</p>
+    <br>
+      <p><strong>Créé par:</strong> {{ $feed->created_by }}</p><br>
             @isset($feed->updated_by)
-            <p><strong>Modifié par:</strong> {{ $feed->updated_by }}</p>
+            <p><strong>Modifié par:</strong> {{ $feed->updated_by }}</p><br>
             @endisset
 
     <div class="text-end">

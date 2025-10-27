@@ -8,17 +8,18 @@
                     </button>
             </div>
             <div class="modal-body">
-                <p><strong>Libellé :</strong> {{ $groupe->libelle }}</p>
-                <p><strong>Description :</strong> {{ $groupe->description }}</p>
+                <p><strong>Libellé :</strong> {{ $groupe->libelle }}</p><br>
+                <p><strong>Description :</strong> {{ $groupe->description }}</p><br>
                 <p><strong>Rôles associés :</strong></p>
                 @forelse($groupe->roles as $role)
                     <span class="badge bg-secondary">{{ $role->libelle }}</span>
                 @empty
                     <em>Aucun rôle assigné</em>
                 @endforelse
-                 <p><strong>Créé par:</strong> {{ $groupe->created_by }}</p>
+             <br><br>
+                 <p><strong>Créé par:</strong> {{ $groupe->created_by }}</p><br>
             @isset($groupe->updated_by)
-            <p><strong>Modifié par:</strong> {{ $groupe->updated_by }}</p>
+            <p><strong>Modifié par:</strong> {{ $groupe->updated_by }}</p><br>
             @endisset
             </div>
         </div>

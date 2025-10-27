@@ -1,3 +1,5 @@
+<div class="card">
+<div class="card-body">
 <table class="table table-hover table-bordered table-striped table-responsive-sm" id="groupe-table">
     <thead >
         <tr>
@@ -30,11 +32,10 @@
                             data-target="#editModal{{ $groupe->id }}">
                         Modifier
                     </button>
-                    <form action="{{ route('groupes.destroy', $groupe) }}" method="POST" style="display:inline-block;">
-                        @csrf @method('DELETE')
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ce groupe ?')">
-                            Supprimer
-                        </button>
+                    <form action="{{ route('groupes.destroy', $groupe) }}" method="POST" class="delete-form" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                     </form>
                 </td>
             </tr>
@@ -45,6 +46,8 @@
         @endforelse
     </tbody>
 </table>
+</div>
+</div>
 <script>
 
         $(function () {
@@ -81,5 +84,26 @@
             }).draw();
 
         });
+document.addEventListener('DOMContentLoaded', function () {
+            // Sélectionne tous les formulaires de suppression
+            document.querySelectorAll('.delete-form').forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // empêche la soumission immédiate
 
+                    Swal.fire({
+                        title: 'Êtes-vous sûr de vouloir supprimer ?',
+                        text: "Cette action est irréversible.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Oui, supprimer',
+                        cancelButtonText: 'Annuler',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // soumet seulement si confirmé
+                        }
+                    });
+                });
+            });
+        });
  </script>

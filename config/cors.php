@@ -15,11 +15,19 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
     'allowed_origins' => ['*'],
+=======
+   'paths' => ['api/*', 'sanctum/csrf-cookie'],
+
+    'allowed_methods' => ['*'],
+
+    'allowed_origins' => ['http://localhost:5173'], // Votre URL React
+>>>>>>> 90fc09f6257a5eed05c8796bee1c0999d1ce72ab
 
     'allowed_origins_patterns' => [],
 
