@@ -10,5 +10,6 @@ use App\Http\Controllers\Api\AlerteController;
 Route::prefix('alertes')->group(function () {
     Route::get('/', [AlerteController::class, 'index']);         
     Route::get('/last-five', [AlerteController::class, 'cinqAlerte']); 
-    Route::get('/{id}', [AlerteController::class, 'show']);      
+    Route::get('/{id}', [AlerteController::class, 'show']);    
+    Route::get('/{id}/imprimer', [AlerteController::class, 'imprimer']);  
 });
