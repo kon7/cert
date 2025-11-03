@@ -46,13 +46,33 @@ class AlerteController extends Controller
 
         return response()->json($alerte);
     }
-            public function imprimer($id)
-        {
-            $alerte = Alerte::with('typeAlerte')->findOrFail($id);
+        //     public function imprimer($id)
+        // {
+        //     $alerte = Alerte::with('typeAlerte')->findOrFail($id);
 
-            $pdf = Pdf::loadView('alertes.impression', compact('alerte'))
-                    ->setPaper('a4', 'portrait');
+        //     $pdf = Pdf::loadView('alertes.impression', compact('alerte'))
+        //             ->setPaper('a4', 'portrait');
 
-            return $pdf->stream('Alerte_' . $alerte->reference . '.pdf');
-        }
+        //     return $pdf->stream('Alerte_' . $alerte->reference . '.pdf');
+        // }
+        public function imprimer($id)
+{
+    $alerte = Alerte::with('typeAlerte')->findOrFail($id);
+
+    // Vérifier l'accès si nécessaire
+    // $this->authorize('view', $alerte);
+
+    $pdf = \PDF::loadView('alertes.impression', compact('alerte'))
+        ->setPaper('a4', 'portrait');
+
+    // streamDownload envoie le bon Content-Disposition pour forcer le téléchargement
+    return response()->streamDownload(function () use ($pdf) {
+        echo $pdf->output();
+    }, 'Alerte_' . $alerte->reference . '.pdf', [
+        'Content-Type' => 'application/pdf',
+        // autres headers éventuels
+    ]);
+}
+
+
 }

@@ -15,7 +15,7 @@ class CheckSessionTimeout
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {   $timeout = 15; // Minutes d'inactivité
+    {   $timeout = 360; // Minutes d'inactivité
 
         if (Auth::check()) {
             $lastActivity = session('last_activity_time');

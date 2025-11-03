@@ -18,7 +18,7 @@
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}"> -->
 
     <!-- Icons & Fonts -->
     <link rel="stylesheet" href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}">
@@ -30,9 +30,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/simplemde/simplemde.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
      <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('assets/css/demo_2/dataTables.bootstrap4.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/demo_2/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/demo_2/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/demo_2/buttons.bootstrap4.min.css') }}"> -->
 
     <link rel="stylesheet" href="{{ asset('assets/css/demo_2/bootstrap-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.css') }}">
@@ -69,34 +69,32 @@
     </div>
 
 
-    {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}} --}}
+  
 
     <!-- Core JS -->
     <script src="{{ asset('assets/vendors/core/core.js') }}"></script>
-    <!-- CKEditor CDN -->
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script> --}}
+ 
  
     
 
     <!-- Charts & Plugins -->
-    <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery.flot/jquery.flot.resize.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/progressbar.js/progressbar.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/progressbar.js/progressbar.min.js') }}"></script> -->
     <script src="{{ asset('assets/vendors/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/simplemde/simplemde.min.js') }}"></script>
+ 
+
+    <!-- <script src="{{ asset('assets/vendors/simplemde/simplemde.min.js') }}"></script> -->
     <script src="{{ asset('assets/js/tinymce.js') }}"></script>
-    <script src="{{ asset('assets/js/simplemde.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/simplemde.js') }}"></script>
     <script src="{{ asset('assets/js/ace.js') }}"></script>
-    <script src="{{ asset('assets/vendors/ace-builds/src-min/ace.js') }}"></script>
+    <script src="{{ asset('assets/vendors/ace-builds/src-min/ace.js') }}"></script> -->
     
-    <!-- DataTables -->
-    {{-- <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script> --}}
+  
 
     <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.bootstrap4.min.js') }}"></script>

@@ -7,6 +7,8 @@ use App\Models\Groupe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TwoFactorCodeMail;
 
 class UtilisateurController extends Controller
 {
@@ -107,54 +109,127 @@ class UtilisateurController extends Controller
      */
     public function destroy(Utilisateur $utilisateur)
     {
-        $utilisateur->delete();
+         $utilisateur->update(['is_active' => false]);
 
         return redirect()->route('utilisateurs.index')
-                         ->with('success', 'Utilisateur supprimé avec succès.');
+                     ->with('success', 'Utilisateur désactivé avec succès.');
+    }
+    public function show2faForm()
+{
+    return view('auth.verify-2fa');
+}
+
+public function verify2fa(Request $request)
+{
+    $request->validate(['two_factor_code' => 'required|numeric']);
+
+    $userId = $request->session()->get('two_factor_user_id');
+    $user = Utilisateur::find($userId);
+
+    if (!$user || $user->two_factor_code !== $request->two_factor_code) {
+        return back()->withErrors(['two_factor_code' => 'Code de vérification invalide.']);
     }
 
-    public function login(Request $request){
+    if ($user->two_factor_expires_at->lt(now())) {
+        return back()->withErrors(['two_factor_code' => 'Le code a expiré.']);
+    }
+
+    // Tout est bon → reset le code et connecte l’utilisateur
+    $user->resetTwoFactorCode();
+    Auth::login($user);
+    $request->session()->forget('two_factor_user_id');
+
+    return redirect()->intended('/dashbord')->with('success', 'Authentification réussie.');
+}
+
+
+            //     public function login(Request $request)
+            // {
+            //     //  Validation des champs
+            //     $credentials = $request->validate([
+            //         'email' => ['required', 'email'],
+            //         'password' => ['required'],
+            //     ]);
+
+            //     //  Vérifie si l'utilisateur existe
+            //     $user = \App\Models\Utilisateur::where('email', $credentials['email'])->first();
+
+            //     if (!$user) {
+            //         return back()->withErrors([
+            //             'email' => 'Aucun utilisateur trouvé avec cet email.',
+            //         ])->onlyInput('email');
+            //     }
+
+            //     //  Vérifie s'il est actif
+            //     if (!$user->is_active) {
+            //         return back()->withErrors([
+            //             'email' => 'Votre compte est désactivé. Veuillez contacter l’administrateur.',
+            //         ])->onlyInput('email');
+            //     }
+
+            //     //  Vérifie les identifiants et connecte
+            //     if (Auth::attempt($credentials)) {
+            //         $request->session()->regenerate();
+            //         return redirect()->intended('/dashbord');
+            //     }
+
+            //     //  Sinon, mot de passe incorrect
+            //     return back()->withErrors([
+            //         'email' => 'Les identifiants fournis sont incorrects.',
+            //     ])->onlyInput('email');
+            // }
+                public function login(Request $request)
+        {
+            // Validation
             $credentials = $request->validate([
                 'email' => ['required', 'email'],
                 'password' => ['required'],
             ]);
 
-            if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-                return redirect()->intended('/dashbord');
+            // Vérification utilisateur
+            $user = Utilisateur::where('email', $credentials['email'])->first();
+
+            if (!$user) {
+                return back()->withErrors(['email' => 'Aucun utilisateur trouvé avec cet email.'])->onlyInput('email');
             }
 
-            return back()->withErrors([
-                'email' => 'Les identifiants fournis sont incorrects.',
-            ])->onlyInput('email');
-    }
+            if (!$user->is_active) {
+                return back()->withErrors(['email' => 'Votre compte est désactivé.'])->onlyInput('email');
+            }
+
+            // Vérification du mot de passe
+            if (!Auth::attempt($credentials)) {
+                return back()->withErrors(['email' => 'Les identifiants fournis sont incorrects.'])->onlyInput('email');
+            }
+
+            // Étape 1 réussie → génération du code 2FA
+            $user->generateTwoFactorCode();
+
+            // Envoi du code par email
+            Mail::to($user->email)->send(new TwoFactorCodeMail($user));
+
+            // Déconnexion temporaire jusqu'à la vérification
+            Auth::logout();
+
+            // Stocke l'ID utilisateur dans la session
+            $request->session()->put('two_factor_user_id', $user->id);
+
+            return redirect()->route('verify.2fa.form')
+                            ->with('success', 'Un code de vérification a été envoyé à votre adresse email.');
+        }
+                
+
+
+            public function activate(Utilisateur $utilisateur)
+        {
+            $utilisateur->update(['is_active' => true]);
+
+            return redirect()->route('utilisateurs.index')
+                            ->with('success', 'Utilisateur réactivé avec succès.');
+        }
     
 
-        // public function login(Request $request)
-        // {
-           
-        //     $credentials = $request->validate([
-        //         'email' => 'required|email',
-        //         'password' => 'required|string',
-        //         'remember' => 'nullable|boolean', 
-        //     ]);
-
-        //     $utilisateur = Utilisateur::where('email', $credentials['email'])->first();
-
-        //     if ($utilisateur && Hash::check($credentials['password'], $utilisateur->password)) {
-                
-        //         $remember = $request->has('remember') && $request->remember;
-
-               
-        //         Auth::login($utilisateur, $remember);
-
-        //         return redirect()->route('dashboard')->with('success', 'Connexion réussie !');
-        //     }
-
-        //     return back()->withErrors([
-        //         'email' => 'Identifiants invalides.',
-        //     ])->onlyInput('email');
-        // }
+      
 
     public function logout()
     {

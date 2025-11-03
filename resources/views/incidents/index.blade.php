@@ -11,7 +11,7 @@
 </style>
 {{-- <div class="container mt-4"> --}}
     
-<h3 class="mb-4">Incidentes</h3>
+<h3 class="mb-4">Incidents</h3>
     {{-- <div class="card shadow-sm rounded-3"> --}}
         {{-- <div class="card-body"> --}}
             @include('incidents.table')

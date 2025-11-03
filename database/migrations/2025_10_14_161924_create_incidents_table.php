@@ -31,28 +31,28 @@ return new class extends Migration
             $table->string('duree_inci_clos')->nullable();
 
             $table->string('incident_decouve')->nullable();
-            $table->string('incident_decouve_autre')->nullable();
+          
 
             $table->string('origine_incident')->nullable();
 
             $table->string('moyens_inden_supp')->nullable();
-            $table->string('moyens_inden_supp_autre')->nullable();
+           
             $table->text('description_moyens')->nullable();
 
             $table->string('objectif_attaquant')->nullable();
-            $table->string('objectif_attaquant_autre')->nullable();
+           
 
             $table->string('action_realise')->nullable();
-            $table->string('action_realise_autre')->nullable();
+           
 
             $table->text('desc_gene_icident')->nullable();
             $table->text('action_immediates')->nullable();
 
             $table->string('indentification_activ_affect')->nullable();
-            $table->string('indentification_activ_affect_autre')->nullable();
+         
 
             $table->string('indentification_serv_affect')->nullable();
-            $table->string('indentification_serv_affect_autre')->nullable();
+          
 
             // Peut contenir plusieurs valeurs (checkbox multiples)
             $table->json('impact_averer')->nullable();
