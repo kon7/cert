@@ -9,6 +9,7 @@
             <th>Prénom</th>
             <th>Email</th>
             <th>Groupe</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -29,15 +30,27 @@
                     @endforelse
             </td>
             <td>
+                @if($utilisateur->is_active)
+                    <span class="badge bg-success">Actif</span>
+                @else
+                    <span class="badge bg-secondary">Inactif</span>
+                @endif
+            </td>
+            <td>
                 <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#showModal{{ $utilisateur->id }}">Voir</button>
                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $utilisateur->id }}">Éditer</button>
-                <form action="{{ route('utilisateurs.destroy', $utilisateur->id) }}" 
-                    method="POST" 
-                    class="delete-form d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                </form>
+                 @if($utilisateur->is_active)
+                    <form action="{{ route('utilisateurs.destroy', $utilisateur->id) }}" method="POST" class="desactive-form d-inline">
+                        @csrf
+                        @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Désactiver</button>
+                            </form>
+                        @else
+                            <form action="{{ route('utilisateurs.activate', $utilisateur->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-sm">Réactiver</button>
+                            </form>
+                  @endif
 
             </td>
         </tr>

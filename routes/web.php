@@ -14,6 +14,9 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {return view('auth.login');})->name('pagelogin');
 Route::post('/login', [UtilisateurController::class, 'login'])->name('login');
+Route::get('/verify-2fa', [UtilisateurController::class, 'show2faForm'])->name('verify.2fa.form');
+Route::post('/verify-2fa', [UtilisateurController::class, 'verify2fa'])->name('verify.2fa');
+
 
 //     /**site vitrine route alerte */
 // Route::get('/cert', [AlerteController::class, 'certIndex'])->name('cert.index');
@@ -39,6 +42,8 @@ Route::middleware(['auth', 'session.timeout'])->group(function () {
         Route::get('/utilisateurs/{utilisateur}/edit', [UtilisateurController::class, 'edit'])->name('utilisateurs.edit');
         Route::put('/utilisateurs/{utilisateur}', [UtilisateurController::class, 'update'])->name('utilisateurs.update');
         Route::delete('/utilisateurs/{utilisateur}', [UtilisateurController::class, 'destroy'])->name('utilisateurs.destroy');
+        Route::post('/utilisateurs/{utilisateur}/activate', [UtilisateurController::class, 'activate'])->name('utilisateurs.activate');
+
         Route::get('/profile', [UtilisateurController::class, 'profile'])->name('utilisateur.profile');
       });
 

@@ -45,7 +45,7 @@ class AdminSeeder extends Seeder
 
         // Créer l’utilisateur admin
         $utilisateurAdmin = Utilisateur::firstOrCreate(
-            ['email' => 'admin@gmail.com'],
+            ['email' => 'konkobowendpoure@gmail.com'],
             [
                 'matricule' => 'ADM001',
                 'nom' => 'Admin',

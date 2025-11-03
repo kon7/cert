@@ -13,10 +13,10 @@
         <div class="modal-body">
             <!-- Ligne 1 : Référence et Intitulé -->
             <div class="row">
-                <div class="col-md-6 mb-2">
+                <!-- <div class="col-md-6 mb-2">
                     <input type="text" name="reference" class="form-control" placeholder="Référence" value="{{ $alerte->reference }}" required>
-                </div>
-                <div class="col-md-6 mb-2">
+                </div> -->
+                <div class="col-md-12 mb-2">
                     <input type="text" name="intitule" class="form-control" placeholder="Intitulé" value="{{ $alerte->intitule }}" required>
                 </div>
             </div>
@@ -72,10 +72,25 @@
             </div>
 
             <!-- Ligne 5 : Concerné (pleine largeur) -->
-            <div class="mb-2">
+            <!-- <div class="mb-2">
                 <input type="text" name="concerne" class="form-control" placeholder="Concerné" value="{{ $alerte->concerne }}">
-            </div>
-
+            </div> -->
+           <div class="mb-2">
+                  <label for="alerteConcerneSelect{{ $alerte->id }}">Concerné :</label>
+                  <select id="alerteConcerneSelect{{ $alerte->id }}" class="form-control" name="alerte_concerne_select">
+                      <option value="tous" {{ isset($alerte) && $alerte->concerne === 'tous' ? 'selected' : '' }}>Tous</option>
+                      <option value="autre" {{ isset($alerte) && $alerte->concerne !== 'tous' ? 'selected' : '' }}>Autre</option>
+                  </select>
+              </div>
+              <div class="mb-2" id="alerteAutreConcerneDiv{{ $alerte->id }}" style="display: {{ isset($alerte) && $alerte->concerne !== 'tous' ? 'block' : 'none' }};">
+                  <input
+                      type="text"
+                      id="alerteAutreConcerneInput{{ $alerte->id }}"
+                      class="form-control"
+                      placeholder="Précisez..."
+                      value="{{ isset($alerte) && $alerte->concerne !== 'tous' ? $alerte->concerne : '' }}">
+              </div>
+              <input type="hidden" name="concerne" id="alerteConcerneHidden{{ $alerte->id }}" value="{{ isset($alerte) ? $alerte->concerne : 'tous' }}">
             <!-- Ligne 6 : Risque (pleine largeur avec CKEditor) -->
             <div class="mb-2">
                 <label>Risque :</label>
@@ -112,6 +127,8 @@
     </div>
   </div>
 </div>
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -163,4 +180,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
      });
 });
+
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // IDs dynamiques basés sur l'ID de l'alerte
+        const alerteId = {{ $alerte->id }};
+        const concerneSelect = document.getElementById('alerteConcerneSelect' + alerteId);
+        const autreConcerneDiv = document.getElementById('alerteAutreConcerneDiv' + alerteId);
+        const autreConcerneInput = document.getElementById('alerteAutreConcerneInput' + alerteId);
+        const concerneHiddenInput = document.getElementById('alerteConcerneHidden' + alerteId);
+
+     
+
+        function toggleAutreConcerneField() {
+            if (concerneSelect.value === 'autre') {
+                autreConcerneDiv.style.display = 'block';
+                autreConcerneInput.required = true;
+                if (concerneHiddenInput.value !== 'tous') {
+                    autreConcerneInput.value = concerneHiddenInput.value;
+                }
+                
+            } else {
+                autreConcerneDiv.style.display = 'none';
+                autreConcerneInput.required = false;
+                autreConcerneInput.value = '';
+                concerneHiddenInput.value = 'tous';
+                
+            }
+        }
+
+        concerneSelect.addEventListener('change', function() {
+            toggleAutreConcerneField();
+        });
+
+        autreConcerneInput.addEventListener('input', function() {
+            concerneHiddenInput.value = autreConcerneInput.value.trim();
+        });
+
+        toggleAutreConcerneField();
+    });
+</script>
+
+
+
+
+
+
+

@@ -15,10 +15,10 @@
         <div class="modal-body">
           
             <div class="row">
-                <div class="col-md-6 mb-2">
+                <!-- <div class="col-md-6 mb-2">
                     <input type="text" name="reference" class="form-control" placeholder="Référence" required>
-                </div>
-                <div class="col-md-6 mb-2">
+                </div> -->
+                <div class="col-md-12 mb-2">
                     <input type="text" name="intitule" class="form-control" placeholder="Intitulé" required>
                 </div>
             </div>
@@ -71,9 +71,27 @@
             </div>
 
            
-            <div class="mb-2">
+            <!-- <div class="mb-2">
                 <input type="text" name="concerne" class="form-control" placeholder="Concerné">
-            </div>
+            </div> -->
+                <div class="mb-2">
+    <label for="concerneSelect">Concerné :</label>
+    <select id="concerneSelect" class="form-control" name="concerne_select">
+        <option value="tous">Tous</option>
+        <option value="autre">Autre</option>
+    </select>
+</div>
+
+<div class="mb-2" id="autreConcerneDiv" style="display: none;">
+    <input 
+        type="text" 
+        id="autreConcerne" 
+        class="form-control" 
+        placeholder="Précisez...">
+</div>
+
+<!-- Champ qui sera envoyé au backend -->
+<input type="hidden" name="concerne" id="concerneHidden" value="tous">
 
            
             <div class="mb-2">
@@ -150,4 +168,43 @@ document.addEventListener('DOMContentLoaded', function () {
     initEditors();
   }
 });
+
+
+</script>
+<script>
+    const select = document.getElementById('concerneSelect');
+    const autreDiv = document.getElementById('autreConcerneDiv');
+    const autreInput = document.getElementById('autreConcerne');
+    const hiddenInput = document.getElementById('concerneHidden');
+
+    // Fonction de bascule et de synchronisation
+    function updateConcerne() {
+        if (select.value === 'autre') {
+            // Affiche le champ texte
+            autreDiv.style.display = 'block';
+            autreInput.required = true;
+            // Met à jour la valeur envoyée selon la saisie
+            hiddenInput.value = autreInput.value.trim();
+        } else {
+            // Cache le champ texte
+            autreDiv.style.display = 'none';
+            autreInput.required = false;
+            autreInput.value = '';
+            // Envoie "tous"
+            hiddenInput.value = 'tous';
+        }
+    }
+
+    // Quand on change le select
+    select.addEventListener('change', updateConcerne);
+
+    // Quand on tape dans le champ texte
+    autreInput.addEventListener('input', function () {
+        if (select.value === 'autre') {
+            hiddenInput.value = this.value.trim();
+        }
+    });
+
+    // Initialisation
+    updateConcerne();
 </script>

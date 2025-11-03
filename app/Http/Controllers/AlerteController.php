@@ -36,7 +36,7 @@ class AlerteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'reference' => 'required|string|unique:alertes',
+            // 'reference' => 'required|string|unique:alertes',
             'intitule' => 'required|string',
             'type_alerte_id' => 'required|exists:type_alertes,id',
             'date' => 'nullable|date',
@@ -85,7 +85,7 @@ class AlerteController extends Controller
     public function update(Request $request, Alerte $alerte)
     {
         $validated = $request->validate([
-            'reference' => 'required|string|unique:alertes,reference,' . $alerte->id,
+            // 'reference' => 'required|string|unique:alertes,reference,' . $alerte->id,
             'intitule' => 'required|string',
             'type_alerte_id' => 'required|exists:type_alertes,id',
             'date' => 'nullable|date',

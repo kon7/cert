@@ -43,4 +43,30 @@ class Alerte extends Model
     {
         return $this->belongsTo(Type_alerte::class, 'type_alerte_id');
     }
+
+    
+
+     protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($alerte) {
+            if (!$alerte->reference) {
+                $year = date('Y');
+                $typeCode = strtoupper(substr($alerte->typeAlerte->libelle, 0, 3));
+
+                // Récupère le dernier numéro pour ce type et cette année
+                $lastAlerte = self::whereYear('created_at', $year)
+                                  ->whereHas('typeAlerte', function($q) use ($alerte) {
+                                      $q->where('id', $alerte->type_alerte_id);
+                                  })
+                                  ->orderBy('id', 'desc')
+                                  ->first();
+
+                $nextNumber = $lastAlerte ? ((int)explode('-', $lastAlerte->reference)[3] + 1) : 1;
+
+                $alerte->reference = "CERTBFA-{$year}-{$typeCode}-{$nextNumber}";
+            }
+        });
+    }
 }

@@ -90,10 +90,12 @@ class SyncFeeds extends Command
                     'feed_source_id' => $source->id,
                     'title'          => $cve,
                     'description'    => $vuln['cve']['descriptions'][0]['value'] ?? '',
-                    // 'content'        => json_encode($vuln),
+                  
                     'source'         => $source->name,
                 ]
             );
         }
     }
+              
+
 }
